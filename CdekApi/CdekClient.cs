@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Xml;
+using CdekApi.DataContracts;
 using CdekApi.Toolbox;
 using RestSharp;
 
@@ -87,60 +89,60 @@ namespace CdekApi
         {
             if (!response.IsSuccessful)
             {
-                //// try to find the non-empty error message
-                //var errorMessage = response.ErrorMessage;
-                //var contentMessage = response.Content;
-                //var errorResponse = default(ErrorResponse);
-                //if (response.ContentType != null)
-                //{
-                //    // Text/plain;charset=UTF-8 => text/plain
-                //    var contentType = response.ContentType.ToLower().Trim();
-                //    var semicolonIndex = contentType.IndexOf(';');
-                //    if (semicolonIndex >= 0)
-                //    {
-                //        contentType = contentType.Substring(0, semicolonIndex).Trim();
-                //    }
+                // try to find the non-empty error message
+                var errorMessage = response.ErrorMessage;
+                var contentMessage = response.Content;
+                var errorResponse = default(ErrorResponse);
+                if (response.ContentType != null)
+                {
+                    // Text/plain;charset=UTF-8 => text/plain
+                    var contentType = response.ContentType.ToLower().Trim();
+                    var semicolonIndex = contentType.IndexOf(';');
+                    if (semicolonIndex >= 0)
+                    {
+                        contentType = contentType.Substring(0, semicolonIndex).Trim();
+                    }
 
-                //    // Try to deserialize error response DTO
-                //    if (Serializer.SupportedContentTypes.Contains(contentType))
-                //    {
-                //        errorResponse = Serializer.Deserialize<ErrorResponse>(response);
-                //        contentMessage = string.Join(". ", new[]
-                //        {
-                //            errorResponse.ErrorMessage,
-                //            //errorResponse.Message,
-                //            //errorResponse.Description,
-                //        }
-                //        .Distinct()
-                //        .Where(m => !string.IsNullOrWhiteSpace(m)));
-                //    }
-                //    else if (response.ContentType.ToLower().Contains("html"))
-                //    {
-                //        // Try to parse HTML
-                //        contentMessage = HtmlHelper.ExtractText(response.Content);
-                //    }
-                //    else
-                //    {
-                //        // Return as is assuming text/plain content
-                //        contentMessage = response.Content;
-                //    }
-                //}
+                    // Try to deserialize error response DTO
+                    if (Serializer.SupportedContentTypes.Contains(contentType))
+                    {
+                        errorResponse = Serializer.Deserialize<ErrorResponse>(response);
+                        contentMessage = string.Join(". ", errorResponse?.Errors?.Select(e => e.Message) ?? new[] { string.Empty }
+                            .Distinct()
+                            .Where(m => !string.IsNullOrWhiteSpace(m)));
+                    }
+                    else if (response.ContentType.ToLower().Contains("html"))
+                    {
+                        // Try to parse HTML
+                        contentMessage = HtmlHelper.ExtractText(response.Content);
+                    }
+                    else
+                    {
+                        // Return as is assuming text/plain content
+                        contentMessage = response.Content;
+                    }
+                }
 
-                //// HTML->XML deserialization errors are meaningless
-                //if (response.ErrorException is XmlException && errorMessage == response.ErrorException.Message)
-                //{
-                //    errorMessage = contentMessage;
-                //}
+                // HTML->XML deserialization errors are meaningless
+                if (response.ErrorException is XmlException && errorMessage == response.ErrorException.Message)
+                {
+                    errorMessage = contentMessage;
+                }
 
-                //// empty error message is meaningless
-                //if (string.IsNullOrWhiteSpace(errorMessage))
-                //{
-                //    errorMessage = contentMessage;
-                //}
+                // JSON deserialiation exception is meaningless
+                if (response.ErrorException is Newtonsoft.Json.JsonSerializationException && errorMessage == response.ErrorException.Message)
+                {
+                    errorMessage = contentMessage;
+                }
 
-                //// finally, throw it
-                //throw new TrueApiException(response.StatusCode, errorMessage, errorResponse, response.ErrorException);
-                throw new Exception(response.StatusCode.ToString());
+                // empty error message is meaningless
+                if (string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    errorMessage = contentMessage;
+                }
+
+                // finally, throw it
+                throw new CdekApiException(response.StatusCode, errorMessage, errorResponse, response.ErrorException);
             }
         }
 

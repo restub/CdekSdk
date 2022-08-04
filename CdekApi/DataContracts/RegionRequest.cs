@@ -1,15 +1,16 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace CdekApi.DataContracts
 {
     [DataContract]
-    public class GetRegion
+    public class RegionRequest
     {
         [DataMember(Name = "country_codes")]
-        public string[] CountryCodes { get; set; }
+        public List<string> CountryCodes { get; set; }
 
         [DataMember(Name = "region_code")]
-        public int RegionCode { get; set; }
+        public int? RegionCode { get; set; }
 
         [DataMember(Name = "kladr_region_code")]
         public string KladrRegionCode { get; set; }
@@ -18,10 +19,10 @@ namespace CdekApi.DataContracts
         public string FiasRegionCode { get; set; }
 
         [DataMember(Name = "size")]
-        public int Size { get; set; }
+        public int? Size { get; set; }
 
         [DataMember(Name = "page")]
-        public int Page { get; set; }
+        public int? Page { get; set; }
 
         [DataMember(Name = "lang")]
         public string Lang { get; set; }

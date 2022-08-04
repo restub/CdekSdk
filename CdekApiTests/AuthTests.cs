@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using CdekApi;
+using CdekApi.DataContracts;
 using NUnit.Framework;
 
 namespace CdekApiTests
@@ -8,20 +8,24 @@ namespace CdekApiTests
     public class AuthTests
     {
         [Test]
-        public void CdekClientAuthenticates()
+        public void Authenticate()
         {
             var trace = new StringBuilder();
-            var client = new CdekClient(CdekClient.SandboxApiUrl, Credentials.TestCredentials);
-            client.Tracer = (format, args) => trace.AppendFormat(format, args);
+            var client = new TestClient();
+            client.Tracer += (format, args) =>
+            {
+                trace.AppendFormat(format, args);
+            };
 
-            var regions = client.GetRegions();
+            var regions = client.GetRegions(new RegionRequest { Size = 3 });
             Assert.That(regions, Is.Not.Null);
+            Assert.That(regions.Length, Is.EqualTo(3));
 
             var log = trace.ToString();
             Assert.That(log, Is.Not.Empty);
             Assert.That(log, Contains.Substring("oauth/token?parameters"));
-            Assert.That(log, Contains.Substring("AuthToken"));
-            TestContext.Progress.WriteLine(log);
+            Assert.That(log, Contains.Substring("Authorization = Bearer"));
+            Assert.That(log, Contains.Substring("country_code"));
         }
     }
 }

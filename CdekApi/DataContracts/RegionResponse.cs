@@ -3,7 +3,7 @@
 namespace CdekApi.DataContracts
 {
     [DataContract]
-    public class Region
+    public class RegionResponse
     {
         [DataMember(Name = "country")]
         public string CountryName { get; set; }
