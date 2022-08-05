@@ -70,5 +70,28 @@ namespace CdekApiTests
             Assert.That(cities.Length, Is.EqualTo(10));
             Assert.That(cities.Select(r => r.CountryCode).Distinct().Count(), Is.AnyOf(1, 2));
         }
+
+        [Test]
+        public void CalculateTariffList()
+        {
+            var tariffs = Client.CalculateTariffList(new TariffRequest
+            {
+                Lang = Lang.Zho,
+                FromLocation = new Location { CityCode = 270 },
+                ToLocation = new Location { CityCode = 44 },
+                Packages = new[]
+                {
+                    new PackageSize
+                    {
+                        Weight = 4000,
+                        Height = 10,
+                        Width = 10,
+                        Length = 10
+                    }
+                }
+            });
+
+            Assert.That(tariffs, Is.Not.Null);
+        }
     }
 }

@@ -23,5 +23,14 @@ namespace CdekApi
         /// </summary>
         public CityResponse[] GetCities(CityRequest getCities = null) =>
             Get<CityResponse[]>("location/cities", r => r.AddQueryString(getCities));
+
+        /// <summary>
+        /// Calculate the available tariffs for the given package delivery.
+        /// EN: https://api-docs.cdek.ru/63347458.html
+        /// RU: https://api-docs.cdek.ru/63345519.html
+        /// </summary>
+        /// <param name="request">Delivery options</param>
+        public TariffResponse CalculateTariffList(TariffRequest request) =>
+            Post<TariffResponse>("calculator/tarifflist", request);
     }
 }

@@ -60,10 +60,10 @@ namespace CdekApi.Toolbox
                     {
                         var valueName = Enum.GetName(nonNullableType, value);
                         var field = nonNullableType.GetField(valueName);
-                        var enumDataMember = field.GetCustomAttribute<DataMemberAttribute>();
-                        if (enumDataMember != null)
+                        var enumMember = field.GetCustomAttribute<EnumMemberAttribute>();
+                        if (enumMember != null)
                         {
-                            valueName = enumDataMember.Name;
+                            valueName = enumMember.Value;
                         }
 
                         request.AddParameter(parameterName, valueName, type);

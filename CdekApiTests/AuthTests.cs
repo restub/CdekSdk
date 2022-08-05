@@ -21,7 +21,7 @@ namespace CdekApiTests
             var log = trace.ToString();
             Assert.That(log, Is.Not.Empty);
             Assert.That(log, Contains.Substring("oauth/token?parameters"));
-            Assert.That(log, Contains.Substring("Authorization = Bearer"));
+            Assert.That(log, Contains.Substring("Authorization = Bearer").Or.Contains("Authorization = bearer"));
             Assert.That(log, Contains.Substring("country_code"));
         }
     }

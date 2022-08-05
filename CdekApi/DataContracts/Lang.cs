@@ -7,15 +7,16 @@ namespace CdekApi.DataContracts
     /// EN: https://api-docs.cdek.ru/63347458.html
     /// RU: https://api-docs.cdek.ru/63345519.html
     /// </summary>
+    [DataContract]
     public enum Lang
     {
-        [DataMember(Name = "rus")]
+        [EnumMember(Value = "rus")]
         Rus,
 
-        [DataMember(Name = "eng")]
+        [EnumMember(Value = "eng")]
         Eng,
 
-        [DataMember(Name = "zho")]
+        [EnumMember(Value = "zho")]
         Zho
     }
 }
