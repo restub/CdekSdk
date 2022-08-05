@@ -196,16 +196,12 @@ namespace CdekApi
         /// </summary>
         /// <typeparam name="T">Response type.</typeparam>
         /// <param name="url">Resource url.</param>
-        /// <param name="parameters">IRestRequest parameters.</param>
+        /// <param name="initRequest">IRestRequest initialization.</param>
         /// <param name="apiMethodName">Strong-typed REST API method name, for tracing.</param>
-        public T Get<T>(string url, Parameter[] parameters = null, [CallerMemberName] string apiMethodName = null)
+        public T Get<T>(string url, Action<IRestRequest> initRequest = null, [CallerMemberName] string apiMethodName = null)
         {
             var request = new RestRequest(url, Method.GET, DataFormat.Json);
-            if (parameters != null && parameters.Any())
-            {
-                request.AddOrUpdateParameters(parameters);
-            }
-
+            initRequest?.Invoke(request);
             return Execute<T>(request, apiMethodName);
         }
 
@@ -213,16 +209,12 @@ namespace CdekApi
         /// Performs GET request and returns a string.
         /// </summary>
         /// <param name="url">Resource url.</param>
-        /// <param name="parameters">IRestRequest parameters.</param>
+        /// <param name="initRequest">IRestRequest initialization.</param>
         /// <param name="apiMethodName">Strong-typed REST API method name, for tracing.</param>
-        public string Get(string url, Parameter[] parameters = null, [CallerMemberName] string apiMethodName = null)
+        public string Get(string url, Action<IRestRequest> initRequest = null, [CallerMemberName] string apiMethodName = null)
         {
             var request = new RestRequest(url, Method.GET, DataFormat.Json);
-            if (parameters != null && parameters.Any())
-            {
-                request.AddOrUpdateParameters(parameters);
-            }
-
+            initRequest?.Invoke(request);
             return ExecuteString(request, apiMethodName);
         }
 
@@ -232,17 +224,13 @@ namespace CdekApi
         /// <typeparam name="T">Response type.</typeparam>
         /// <param name="url">Resource url.</param>
         /// <param name="body">Request body, to be serialized as JSON.</param>
-        /// <param name="parameters">IRestRequest parameters.</param>
+        /// <param name="initRequest">IRestRequest initialization.</param>
         /// <param name="apiMethodName">Strong-typed REST API method name, for tracing.</param>
-        public T Post<T>(string url, object body, Parameter[] parameters = null, [CallerMemberName] string apiMethodName = null)
+        public T Post<T>(string url, object body, Action<IRestRequest> initRequest = null, [CallerMemberName] string apiMethodName = null)
         {
             var request = new RestRequest(url, Method.POST, DataFormat.Json);
             request.AddJsonBody(body);
-            if (parameters != null && parameters.Any())
-            {
-                request.AddOrUpdateParameters(parameters);
-            }
-
+            initRequest?.Invoke(request);
             return Execute<T>(request, apiMethodName);
         }
 
@@ -251,17 +239,13 @@ namespace CdekApi
         /// </summary>
         /// <param name="url">Resource url.</param>
         /// <param name="body">Request body, to be serialized as JSON.</param>
-        /// <param name="parameters">IRestRequest parameters.</param>
+        /// <param name="initRequest">IRestRequest initialization.</param>
         /// <param name="apiMethodName">Strong-typed REST API method name, for tracing.</param>
-        public void Post(string url, object body, Parameter[] parameters = null, [CallerMemberName] string apiMethodName = null)
+        public void Post(string url, object body, Action<IRestRequest> initRequest = null, [CallerMemberName] string apiMethodName = null)
         {
             var request = new RestRequest(url, Method.POST, DataFormat.Json);
             request.AddJsonBody(body);
-            if(parameters != null && parameters.Any())
-            {
-                request.AddOrUpdateParameters(parameters);
-            }
-
+            initRequest?.Invoke(request);
             Execute(request, apiMethodName);
         }
 
@@ -270,17 +254,13 @@ namespace CdekApi
         /// </summary>
         /// <param name="url">Resource url.</param>
         /// <param name="body">Request body, to be serialized as JSON.</param>
-        /// <param name="parameters">IRestRequest parameters.</param>
+        /// <param name="initRequest">IRestRequest initialization.</param>
         /// <param name="apiMethodName">Strong-typed REST API method name, for tracing.</param>
-        public void Put(string url, object body, Parameter[] parameters = null, [CallerMemberName] string apiMethodName = null)
+        public void Put(string url, object body, Action<IRestRequest> initRequest = null, [CallerMemberName] string apiMethodName = null)
         {
             var request = new RestRequest(url, Method.PUT, DataFormat.Json);
             request.AddJsonBody(body);
-            if (parameters != null && parameters.Any())
-            {
-                request.AddOrUpdateParameters(parameters);
-            }
-
+            initRequest?.Invoke(request);
             Execute(request, apiMethodName);
         }
 
@@ -289,11 +269,13 @@ namespace CdekApi
         /// </summary>
         /// <param name="url">Resource url.</param>
         /// <param name="body">Request body, serialized as string.</param>
+        /// <param name="initRequest">IRestRequest initialization.</param>
         /// <param name="apiMethodName">Strong-typed REST API method name, for tracing.</param>
-        public void Put(string url, string body, [CallerMemberName] string apiMethodName = null)
+        public void Put(string url, string body, Action<IRestRequest> initRequest = null, [CallerMemberName] string apiMethodName = null)
         {
             var request = new RestRequest(url, Method.PUT, DataFormat.None);
             request.AddParameter(string.Empty, body, ParameterType.RequestBody);
+            initRequest?.Invoke(request);
             Execute(request, apiMethodName);
         }
 
@@ -302,9 +284,9 @@ namespace CdekApi
         /// </summary>
         /// <param name="url">Resource url.</param>
         /// <param name="body">Request body, serialized as string.</param>
-        /// <param name="parameters">IRestRequest parameters.</param>
+        /// <param name="initRequest">IRestRequest initialization.</param>
         /// <param name="apiMethodName">Strong-typed REST API method name, for tracing.</param>
-        public void Delete(string url, object body, Parameter[] parameters = null, [CallerMemberName] string apiMethodName = null)
+        public void Delete(string url, object body, Action<IRestRequest> initRequest = null, [CallerMemberName] string apiMethodName = null)
         {
             var request = new RestRequest(url, Method.DELETE, DataFormat.Json);
             if (body != null)
@@ -312,11 +294,7 @@ namespace CdekApi
                 request.AddJsonBody(body);
             }
 
-            if (parameters != null && parameters.Any())
-            {
-                request.AddOrUpdateParameters(parameters);
-            }
-
+            initRequest?.Invoke(request);
             Execute(request, apiMethodName);
         }
     }

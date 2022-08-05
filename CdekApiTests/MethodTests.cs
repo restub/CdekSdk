@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using CdekApi;
 using CdekApi.DataContracts;
 using NUnit.Framework;
@@ -27,6 +29,21 @@ namespace CdekApiTests
             var regions = Client.GetRegions(new RegionRequest { Size = 5 });
             Assert.That(regions, Is.Not.Null);
             Assert.That(regions.Length, Is.EqualTo(5));
+
+            regions = Client.GetRegions(new RegionRequest { Page = 2, Size = 3 });
+            Assert.That(regions, Is.Not.Null);
+            Assert.That(regions.Length, Is.EqualTo(3));
+
+            regions = Client.GetRegions(new RegionRequest { CountryCodes = new[] { "JP" }, Size = 10 });
+            Assert.That(regions, Is.Not.Null);
+            Assert.That(regions.Length, Is.EqualTo(10));
+            Assert.That(regions.Select(r => r.CountryCode).First(), Is.EqualTo("JP"));
+            Assert.That(regions.Select(r => r.CountryCode).Distinct().Count(), Is.EqualTo(1));
+
+            regions = Client.GetRegions(new RegionRequest { CountryCodes = new[] { "FR", "JP" }, Size = 10 });
+            Assert.That(regions, Is.Not.Null);
+            Assert.That(regions.Length, Is.EqualTo(10));
+            Assert.That(regions.Select(r => r.CountryCode).Distinct().Count(), Is.AnyOf(1, 2));
         }
 
         [Test]
@@ -35,6 +52,21 @@ namespace CdekApiTests
             var cities = Client.GetCities(new CityRequest { Size = 5 });
             Assert.That(cities, Is.Not.Null);
             Assert.That(cities.Length, Is.EqualTo(5));
+
+            cities = Client.GetCities(new CityRequest { Page = 2, Size = 3 });
+            Assert.That(cities, Is.Not.Null);
+            Assert.That(cities.Length, Is.EqualTo(3));
+
+            cities = Client.GetCities(new CityRequest { CountryCodes = new[] { "JP" }, Size = 10 });
+            Assert.That(cities, Is.Not.Null);
+            Assert.That(cities.Length, Is.EqualTo(10));
+            Assert.That(cities.Select(r => r.CountryCode).First(), Is.EqualTo("JP"));
+            Assert.That(cities.Select(r => r.CountryCode).Distinct().Count(), Is.EqualTo(1));
+
+            cities = Client.GetCities(new CityRequest { CountryCodes = new[] { "FR", "JP" }, Size = 10 });
+            Assert.That(cities, Is.Not.Null);
+            Assert.That(cities.Length, Is.EqualTo(10));
+            Assert.That(cities.Select(r => r.CountryCode).Distinct().Count(), Is.AnyOf(1, 2));
         }
     }
 }

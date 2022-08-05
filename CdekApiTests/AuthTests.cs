@@ -10,12 +10,9 @@ namespace CdekApiTests
         [Test]
         public void Authenticate()
         {
-            var trace = new StringBuilder();
             var client = new TestClient();
-            client.Tracer += (format, args) =>
-            {
-                trace.AppendFormat(format, args);
-            };
+            var trace = new StringBuilder();
+            client.Tracer += (format, args) => trace.AppendFormat(format, args);
 
             var regions = client.GetRegions(new RegionRequest { Size = 3 });
             Assert.That(regions, Is.Not.Null);

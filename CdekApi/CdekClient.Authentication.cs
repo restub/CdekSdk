@@ -1,5 +1,5 @@
 ﻿using CdekApi.DataContracts;
-using RestSharp;
+using CdekApi.Toolbox;
 
 namespace CdekApi
 {
@@ -15,24 +15,16 @@ namespace CdekApi
         /// <param name="clientSecret">Client secret or password.</param>
         internal AuthToken GetAuthToken(string clientAccount, string clientSecret)
         {
-            // POST request using multipart form data
-            var restRequest = new RestRequest("oauth/token?parameters", Method.POST)
+            return Post<AuthToken>("oauth/token?parameters", null, r =>
             {
-                AlwaysMultipartFormData = true,
-            }
-            .AddParameter("grant_type", "client_credentials")
-            .AddParameter("client_id", clientAccount)
-            .AddParameter("client_secret", clientSecret);
-
-            // doesn't work this way:
-            //var token = Post<AuthToken>("oauth/token?parameters", null, new[]
-            //{
-            //    new Parameter("grant_type", "client_credentials", ,
-            //    client_id = clientAccount,
-            //    client_secret = clientSecret,
-            //});
-
-            return Execute<AuthToken>(restRequest);
+                r.AlwaysMultipartFormData = true;
+                r.AddParameters(new
+                {
+                    grant_type = "client_credentials",
+                    client_id = clientAccount,
+                    client_secret = clientSecret,
+                });
+            });
         }
     }
 }

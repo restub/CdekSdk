@@ -7,7 +7,7 @@ namespace CdekApi.DataContracts
     public class CityRequest
     {
         [DataMember(Name = "country_codes")]
-        public List<string> CountryCodes { get; set; }
+        public string[] CountryCodes { get; set; }
 
         [DataMember(Name = "region_code")]
         public int? RegionCode { get; set; }
