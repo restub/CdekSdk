@@ -7,6 +7,9 @@ using RestSharp;
 
 namespace CdekApi.Toolbox
 {
+    /// <summary>
+    /// Helper class to transform DTO classes into REST parameters.
+    /// </summary>
     public static class ParameterHelper
     {
         /// <summary>
@@ -36,11 +39,15 @@ namespace CdekApi.Toolbox
                 var value = p.GetValue(dataContract);
                 var defaultValue = p.PropertyType.GetDefaultValue();
                 var isNonDefault = !Equals(value, defaultValue);
+                var isNullableType = p.PropertyType.IsNullable();
+                var nonNullableType = p.PropertyType.GetNonNullableType();
+                var isEnumValue = nonNullableType.IsEnum;
                 var dataMember = p.GetCustomAttribute<DataMemberAttribute>();
-                var isRequired = dataMember?.IsRequired ?? false;
+                var isRequired = dataMember?.IsRequired ?? (isEnumValue && !isNullableType);
 
                 if (isNonDefault || isRequired)
                 {
+                    // get parameter name from DataMember attribute
                     var parameterName = dataMember?.Name ?? p.Name;
                     if (value == null || value is string)
                     {
@@ -48,12 +55,28 @@ namespace CdekApi.Toolbox
                         continue;
                     }
 
-                    if (value.GetType().IsPrimitive)
+                    // get enum value from DataMember attribute
+                    if (isEnumValue)
+                    {
+                        var valueName = Enum.GetName(nonNullableType, value);
+                        var field = nonNullableType.GetField(valueName);
+                        var enumDataMember = field.GetCustomAttribute<DataMemberAttribute>();
+                        if (enumDataMember != null)
+                        {
+                            valueName = enumDataMember.Name;
+                        }
+
+                        request.AddParameter(parameterName, valueName, type);
+                        continue;
+                    }
+
+                    if (p.PropertyType.IsPrimitive)
                     {
                         request.AddParameter(parameterName, value, type);
                         continue;
                     }
 
+                    // support array values like this: pages=1,2,3
                     if (value is IEnumerable enumerable)
                     {
                         value = string.Join(",", enumerable.OfType<object>());
@@ -67,6 +90,20 @@ namespace CdekApi.Toolbox
 
             return request;
         }
+
+        /// <summary>
+        /// Gets a value indicating whether the type is nullable.
+        /// </summary>
+        /// <param name="type">The type to examine.</param>
+        public static bool IsNullable(this Type type) =>
+            type != null && type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+
+        /// <summary>
+        /// Returns the underlying nullable type.
+        /// </summary>
+        /// <param name="type">The type to examine.</param>
+        public static Type GetNonNullableType(this Type type) =>
+            type.IsNullable() ? type.GetGenericArguments().First() : type;
 
         /// <summary>
         /// Gets the default value of the given type.

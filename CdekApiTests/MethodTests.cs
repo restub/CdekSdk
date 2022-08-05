@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using CdekApi;
 using CdekApi.DataContracts;
 using NUnit.Framework;
@@ -57,13 +55,17 @@ namespace CdekApiTests
             Assert.That(cities, Is.Not.Null);
             Assert.That(cities.Length, Is.EqualTo(3));
 
+            cities = Client.GetCities(new CityRequest { CountryCodes = new[] { "CN" }, Size = 3, Lang = Lang.Zho });
+            Assert.That(cities, Is.Not.Null);
+            Assert.That(cities.Length, Is.EqualTo(3));
+
             cities = Client.GetCities(new CityRequest { CountryCodes = new[] { "JP" }, Size = 10 });
             Assert.That(cities, Is.Not.Null);
             Assert.That(cities.Length, Is.EqualTo(10));
             Assert.That(cities.Select(r => r.CountryCode).First(), Is.EqualTo("JP"));
             Assert.That(cities.Select(r => r.CountryCode).Distinct().Count(), Is.EqualTo(1));
 
-            cities = Client.GetCities(new CityRequest { CountryCodes = new[] { "FR", "JP" }, Size = 10 });
+            cities = Client.GetCities(new CityRequest { CountryCodes = new[] { "FR", "JP" }, Size = 10, Lang = Lang.Eng });
             Assert.That(cities, Is.Not.Null);
             Assert.That(cities.Length, Is.EqualTo(10));
             Assert.That(cities.Select(r => r.CountryCode).Distinct().Count(), Is.AnyOf(1, 2));

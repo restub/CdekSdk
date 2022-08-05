@@ -24,6 +24,6 @@ namespace CdekApi.DataContracts
         public int? Page { get; set; }
 
         [DataMember(Name = "lang")]
-        public string Lang { get; set; }
+        public Lang? Lang { get; set; }
     }
 }

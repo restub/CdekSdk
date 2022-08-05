@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using CdekApi.DataContracts;
 using CdekApi.Toolbox;
 using NUnit.Framework;
 using RestSharp;
@@ -60,6 +61,9 @@ namespace CdekApiTests
             req.AddParameters(null, ParameterType.QueryString);
             Assert.That(req.Params.Count, Is.EqualTo(0));
 
+            req.AddParameters(123, ParameterType.QueryString);
+            Assert.That(req.Params.Count, Is.EqualTo(0));
+
             req.AddParameters(new Request(), ParameterType.QueryString);
             Assert.That(req.Params.Count, Is.EqualTo(1));
             Assert.That(req.Params["important"], Is.EqualTo(Tuple.Create((object)false, ParameterType.QueryString)));
@@ -98,6 +102,52 @@ namespace CdekApiTests
             req.AddParameters(new Request { Important = true }, ParameterType.Cookie);
             Assert.That(req.Params.Count, Is.EqualTo(3));
             Assert.That(req.Params["important"], Is.EqualTo(Tuple.Create(true, ParameterType.Cookie)));
+        }
+
+        [Test]
+        public void NullabilityTests()
+        {
+            Assert.That(((Type)null).IsNullable(), Is.False);
+            Assert.That(typeof(string).IsNullable(), Is.False);
+            Assert.That(typeof(int).IsNullable(), Is.False);
+            Assert.That(typeof(Lang).IsNullable(), Is.False);
+            Assert.That(typeof(ParameterHelperTests).IsNullable(), Is.False);
+            Assert.That(typeof(int?).IsNullable(), Is.True);
+            Assert.That(typeof(Lang?).IsNullable(), Is.True);
+        }
+
+        [Test]
+        public void GetNonNullableTypeTests()
+        {
+            Assert.That(((Type)null).GetNonNullableType(), Is.Null);
+            Assert.That(typeof(string).GetNonNullableType(), Is.EqualTo(typeof(string)));
+            Assert.That(typeof(int).GetNonNullableType(), Is.EqualTo(typeof(int)));
+            Assert.That(typeof(Lang).GetNonNullableType(), Is.EqualTo(typeof(Lang)));
+            Assert.That(typeof(ParameterHelperTests).GetNonNullableType(), Is.EqualTo(typeof(ParameterHelperTests)));
+            Assert.That(typeof(int?).GetNonNullableType(), Is.EqualTo(typeof(int)));
+            Assert.That(typeof(Lang?).GetNonNullableType(), Is.EqualTo(typeof(Lang)));
+        }
+
+        [Test]
+        public void EnumParameters()
+        {
+            var req = new StubRequest();
+            req.AddParameters(new { lang = Lang.Zho }, ParameterType.HttpHeader);
+            Assert.That(req.Params.Count, Is.EqualTo(1));
+            Assert.That(req.Params["lang"], Is.EqualTo(Tuple.Create("zho", ParameterType.HttpHeader)));
+
+            req.AddParameters(new { lang = Lang.Rus }, ParameterType.QueryStringWithoutEncode);
+            Assert.That(req.Params.Count, Is.EqualTo(1));
+            Assert.That(req.Params["lang"], Is.EqualTo(Tuple.Create("rus", ParameterType.QueryStringWithoutEncode)));
+
+            req.AddParameters(new { lang = (Lang?)Lang.Eng }, ParameterType.RequestBody);
+            Assert.That(req.Params.Count, Is.EqualTo(1));
+            Assert.That(req.Params["lang"], Is.EqualTo(Tuple.Create("eng", ParameterType.RequestBody)));
+
+            // nullable value is ignored, the last value is kept
+            req.AddParameters(new { lang = (Lang?)null }, ParameterType.RequestBody);
+            Assert.That(req.Params.Count, Is.EqualTo(1));
+            Assert.That(req.Params["lang"], Is.EqualTo(Tuple.Create("eng", ParameterType.RequestBody)));
         }
     }
 }
