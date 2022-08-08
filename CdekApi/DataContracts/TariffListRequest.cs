@@ -9,9 +9,9 @@ namespace CdekApi.DataContracts
     /// RU: https://api-docs.cdek.ru/63345519.html
     /// </summary>
     [DataContract]
-    public class TariffRequest : TariffRequestBase
+    public class TariffListRequest : TariffRequestBase
     {
-        [DataMember(Name = "tariff_code")]
-        public int TariffCode { get; set; }
+        [DataMember(Name = "lang")]
+        public Lang? Lang { get; set; } // default is rus
     }
 }

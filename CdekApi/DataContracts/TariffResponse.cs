@@ -1,21 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace CdekApi.DataContracts
 {
     /// <summary>
-    /// Represents pre-order response, the list of available tariffs.
+    /// Tariff calculation response.
     /// EN: https://api-docs.cdek.ru/63347458.html
-    /// RU: https://api-docs.cdek.ru/63345519.html
+    /// RU: https://api-docs.cdek.ru/63345430.html
     /// </summary>
     [DataContract]
     public class TariffResponse
     {
-        [DataMember(Name = "tariff_codes")]
-        public TariffInfo[] TariffCodes { get; set; }
+        [DataMember(Name = "delivery_sum")]
+        public decimal DeliverySum { get; set; }
+
+        [DataMember(Name = "period_min")]
+        public int PeriodMin { get; set; }
+
+        [DataMember(Name = "period_max")]
+        public int PeriodMax { get; set; }
+
+        [DataMember(Name = "weight_calc")]
+        public int WeightCalc { get; set; } // grams
+
+        [DataMember(Name = "total_sum")]
+        public decimal TotalSum { get; set; }
+
+        [DataMember(Name = "currency")]
+        public string Currency { get; set; }
+
+        [DataMember(Name = "services")]
+        public object[] Services { get; set; }
     }
 }

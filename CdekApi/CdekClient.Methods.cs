@@ -30,7 +30,16 @@ namespace CdekApi
         /// RU: https://api-docs.cdek.ru/63345519.html
         /// </summary>
         /// <param name="request">Delivery options</param>
-        public TariffResponse CalculateTariffList(TariffRequest request) =>
-            Post<TariffResponse>("calculator/tarifflist", request);
+        public TariffListResponse CalculateTariffList(TariffListRequest request) =>
+            Post<TariffListResponse>("calculator/tarifflist", request);
+
+        /// <summary>
+        /// Calculate the selected tariff for the given package delivery.
+        /// EN: https://api-docs.cdek.ru/63347397.html
+        /// RU: https://api-docs.cdek.ru/63345430.html
+        /// </summary>
+        /// <param name="request">Delivery options</param>
+        public TariffResponse CalculateTariff(TariffRequest request) =>
+            Post<TariffResponse>("calculator/tariff", request);
     }
 }
