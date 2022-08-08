@@ -1,0 +1,31 @@
+stages:
+  - build
+  - unit tests
+
+build:
+  stage: build
+  script:
+    - dotnet build CdekSdk.sln
+    - dotnet pack -c Release CdekSdk.sln
+  artifacts:
+    paths:
+      - CdekApi\bin\Release\*.nupkg
+
+unit_tests:
+  stage: unit tests
+  before_script:
+    - echo "Normal build -- running unit tests..."
+    - chcp 65001
+    # uncomment to install the required tools --
+    # dotnet tool install -g trx2junit
+  script:
+    # building again the solution
+    - dotnet test CdekSdk.sln --logger "trx;LogFileName=TestResults.trx"
+    - trx2junit CdekApiTests\TestResults\TestResults.trx
+  artifacts:
+    paths:
+      - CdekApiTests\TestResults\TestResults.trx
+    reports:
+      junit:
+        - CdekApiTests\TestResults\TestResults.xml
+    expire_in: 1 day

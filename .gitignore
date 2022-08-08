@@ -1,3 +1,6 @@
 /.vs
 /**/bin
 /**/obj
+/.temp
+/CdekApiTests/TestResults/*.trx
+/CdekApiTests/TestResults/TestResults.xml
