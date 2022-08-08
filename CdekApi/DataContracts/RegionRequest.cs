@@ -2,6 +2,9 @@
 
 namespace CdekApi.DataContracts
 {
+    /// <summary>
+    /// GetRequest method parameters.
+    /// </summary>
     [DataContract]
     public class RegionRequest
     {

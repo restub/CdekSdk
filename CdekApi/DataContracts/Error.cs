@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace CdekApi.DataContracts
 {
+    /// <summary>
+    /// Single error message and code.
+    /// </summary>
     [DataContract]
     public class Error
     {

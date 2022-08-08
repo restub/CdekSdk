@@ -76,7 +76,8 @@ namespace CdekApiTests
         {
             var tariffs = Client.CalculateTariffList(new TariffRequest
             {
-                Lang = Lang.Zho,
+                DeliveryType = DeliveryType.Delivery,
+                Lang = Lang.Eng,
                 FromLocation = new Location { CityCode = 270 },
                 ToLocation = new Location { CityCode = 44 },
                 Packages = new[]
@@ -92,6 +93,8 @@ namespace CdekApiTests
             });
 
             Assert.That(tariffs, Is.Not.Null);
+            Assert.That(tariffs.TariffCodes, Is.Not.Null);
+            Assert.That(tariffs.TariffCodes, Is.Not.Empty);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace CdekApi.DataContracts
         public string TariffDescription { get; set; }
 
         [DataMember(Name = "delivery_mode")]
-        public int DeliveryMode { get; set; }
+        public DeliveryMode DeliveryMode { get; set; }
 
         [DataMember(Name = "delivery_sum")]
         public double DeliverySum { get; set; }

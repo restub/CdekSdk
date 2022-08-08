@@ -12,7 +12,7 @@ namespace CdekApi.DataContracts
     public class TariffRequest
     {
         [DataMember(Name = "type")]
-        public int? DeliveryType { get; set; } // default is DeliveryType.OnlineStore
+        public DeliveryType? DeliveryType { get; set; } // default is DeliveryType.OnlineStore
 
         [DataMember(Name = "date")]
         public DateTime? Date { get; set; } // default is today

@@ -12,6 +12,7 @@ namespace CdekApi.DataContracts
     /// EN: https://api-docs.cdek.ru/63347458.html
     /// RU: https://api-docs.cdek.ru/63345519.html
     /// </summary>
+    [DataContract]
     public class TariffResponse
     {
         [DataMember(Name = "tariff_codes")]
