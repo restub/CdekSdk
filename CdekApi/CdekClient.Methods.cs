@@ -25,6 +25,14 @@ namespace CdekApi
             Get<CityResponse[]>("location/cities", r => r.AddQueryString(getCities));
 
         /// <summary>
+        /// Gets the list of offices.
+        /// EN: https://api-docs.cdek.ru/36990336.html
+        /// RU: https://api-docs.cdek.ru/36982648.html
+        /// </summary>
+        public OfficeResponse[] GetOffices(CityRequest getOffices = null) =>
+            Get<OfficeResponse[]>("deliverypoints", r => r.AddQueryString(getOffices));
+
+        /// <summary>
         /// Calculate the available tariffs for the given package delivery.
         /// EN: https://api-docs.cdek.ru/63347458.html
         /// RU: https://api-docs.cdek.ru/63345519.html
