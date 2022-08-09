@@ -29,7 +29,7 @@ namespace CdekApi
         /// EN: https://api-docs.cdek.ru/36990336.html
         /// RU: https://api-docs.cdek.ru/36982648.html
         /// </summary>
-        public OfficeResponse[] GetOffices(CityRequest getOffices = null) =>
+        public OfficeResponse[] GetOffices(OfficeRequest getOffices = null) =>
             Get<OfficeResponse[]>("deliverypoints", r => r.AddQueryString(getOffices));
 
         /// <summary>

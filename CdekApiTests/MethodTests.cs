@@ -72,6 +72,18 @@ namespace CdekApiTests
         }
 
         [Test]
+        public void GetOffices()
+        {
+            var offices = Client.GetOffices(new OfficeRequest { PostalCode = 125424 });
+            Assert.That(offices, Is.Not.Null);
+            Assert.That(offices, Is.Not.Empty); 
+            
+            offices = Client.GetOffices(new OfficeRequest { CountryCode = "CN", Lang = Lang.Zho });
+            Assert.That(offices, Is.Not.Null);
+            Assert.That(offices, Is.Not.Empty);
+        }
+
+        [Test]
         public void CalculateTariffList()
         {
             var tariffs = Client.CalculateTariffList(new TariffListRequest

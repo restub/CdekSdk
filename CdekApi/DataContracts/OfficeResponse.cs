@@ -36,8 +36,8 @@ namespace CdekApi.DataContracts
         [DataMember(Name = "work_time")]
         public string WorkTime { get; set; }
 
-        //[DataMember(Name = "phones")]
-        //public List<Phone> Phones { get; set; }
+        [DataMember(Name = "phones")]
+        public List<Phone> Phones { get; set; }
 
         [DataMember(Name = "email")]
         public string Email { get; set; }
@@ -46,7 +46,7 @@ namespace CdekApi.DataContracts
         public string Note { get; set; }
 
         [DataMember(Name = "type")]
-        public string Type { get; set; }
+        public OfficeType OfficeType { get; set; }
 
         [DataMember(Name = "owner_сode")]
         public string OwnerСode { get; set; }
@@ -58,24 +58,30 @@ namespace CdekApi.DataContracts
         public bool IsDressingRoom { get; set; }
 
         [DataMember(Name = "have_cashless")]
-        public bool HaveCashless { get; set; }
+        public bool HasCashless { get; set; }
 
         [DataMember(Name = "have_cash")]
-        public bool HaveCash { get; set; }
+        public bool HasCash { get; set; }
 
         [DataMember(Name = "allowed_cod")]
-        public bool AllowedCod { get; set; }
+        public bool CodAllowed { get; set; }
 
-        //[DataMember(Name = "work_time_list")]
-        //public List<WorkTimeList> WorkTimeList { get; set; }
+        [DataMember(Name = "fulfillment")]
+        public bool HasFulfillmentZone { get; set; }
 
-        //[DataMember(Name = "work_time_exceptions")]
-        //public List<WorkTimeException> WorkTimeExceptions { get; set; }
+        [DataMember(Name = "work_time_list")]
+        public OfficeSchedule[] OfficeSchedule { get; set; }
+
+        [DataMember(Name = "work_time_exceptions")]
+        public OfficeScheduleException[] OfficeScheduleExceptions { get; set; }
 
         [DataMember(Name = "weight_min")]
-        public double WeightMin { get; set; }
+        public decimal WeightMin { get; set; }
 
         [DataMember(Name = "weight_max")]
-        public double WeightMax { get; set; }
+        public decimal WeightMax { get; set; }
+
+        [DataMember(Name = "dimensions")]
+        public CellDimensions[] CellDimensions { get; set; }
     }
 }
