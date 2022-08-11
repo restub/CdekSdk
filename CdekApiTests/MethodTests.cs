@@ -77,7 +77,33 @@ namespace CdekApiTests
         {
             var cities = Client.GetCities(new CityRequest { City = "Ростов-на-Дону", Size = 5 });
             Assert.That(cities, Is.Not.Null);
-            Assert.That(cities.Length, Is.LessThanOrEqualTo(5));
+            Assert.That(cities.Length, Is.EqualTo(1));
+            Assert.That(cities[0], Is.Not.Null);
+            Assert.That(cities[0].Code, Is.EqualTo(438));
+            
+            cities = Client.GetCities(new CityRequest { City = "РОСТОВ-НА-ДОНУ", Size = 5 });
+            Assert.That(cities, Is.Not.Null);
+            Assert.That(cities.Length, Is.EqualTo(1));
+            Assert.That(cities[0], Is.Not.Null);
+            Assert.That(cities[0].Code, Is.EqualTo(438));
+
+            cities = Client.GetCities(new CityRequest { City = "Калининград" });
+            Assert.That(cities, Is.Not.Null);
+            Assert.That(cities.Length, Is.EqualTo(1));
+            Assert.That(cities[0], Is.Not.Null);
+            Assert.That(cities[0].Code, Is.EqualTo(152));
+
+            cities = Client.GetCities(new CityRequest { City = "МОСКВА" });
+            Assert.That(cities, Is.Not.Null);
+            Assert.That(cities.Length, Is.EqualTo(1));
+            Assert.That(cities[0], Is.Not.Null);
+            Assert.That(cities[0].Code, Is.EqualTo(44));
+
+            cities = Client.GetCities(new CityRequest { PostalCode = "115162" });
+            Assert.That(cities, Is.Not.Null);
+            Assert.That(cities.Length, Is.EqualTo(1));
+            Assert.That(cities[0], Is.Not.Null);
+            Assert.That(cities[0].Code, Is.EqualTo(44));
         }
 
         [Test]
