@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace CdekApi.DataContracts
@@ -12,11 +13,20 @@ namespace CdekApi.DataContracts
         [DataMember(Name = "region_code")]
         public int? RegionCode { get; set; }
 
-        [DataMember(Name = "kladr_region_code")]
+        [DataMember(Name = "kladr_region_code"), Obsolete]
         public string KladrRegionCode { get; set; }
 
-        [DataMember(Name = "fias_region_guid")]
+        [DataMember(Name = "fias_region_guid"), Obsolete]
         public string FiasRegionCode { get; set; }
+
+        [DataMember(Name = "postal_code")]
+        public string PostalCode { get; set; }
+
+        [DataMember(Name = "code")]
+        public int? CityCode { get; set; }
+
+        [DataMember(Name = "city")]
+        public string City { get; set; }
 
         [DataMember(Name = "size")]
         public int? Size { get; set; }

@@ -42,7 +42,7 @@ namespace CdekApi
         public CdekClient(IRestClient сlient, Credentials credentials)
         {
             Credentials = credentials;
-            Serializer = new Serializer();
+            Serializer = new NewtonsoftSerializer();
 
             // Set up REST client
             Client = сlient;
@@ -65,7 +65,7 @@ namespace CdekApi
         /// <summary>
         /// Gets the serializer.
         /// </summary>
-        public Serializer Serializer { get; }
+        public NewtonsoftSerializer Serializer { get; }
 
         private void PrepareRequest(IRestRequest request, string apiMethodName)
         {

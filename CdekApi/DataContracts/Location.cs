@@ -16,7 +16,7 @@ namespace CdekApi.DataContracts
     public class Location
     {
         [DataMember(Name = "code")]
-        public int CityCode { get; set; } // as returned by GetCities method
+        public int? CityCode { get; set; } // as returned by GetCities method
 
         [DataMember(Name = "postal_code")]
         public string PostalCode { get; set; } // 344017

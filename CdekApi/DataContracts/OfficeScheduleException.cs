@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using CdekApi.Toolbox;
+using Newtonsoft.Json;
 
 namespace CdekApi.DataContracts
 {
@@ -11,8 +13,8 @@ namespace CdekApi.DataContracts
     [DataContract]
     public class OfficeScheduleException
     {
-        [DataMember(Name = "date")]
-        public DateTime Date { get; set; }
+        [DataMember(Name = "date"), JsonConverter(typeof(DateOnlyConverter))]
+        public DateTime Date { get; set; } // date with no time specified
 
         [DataMember(Name = "time")]
         public string Time { get; set; }

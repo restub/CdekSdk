@@ -23,7 +23,7 @@ namespace CdekApi.DataContracts
         public DeliveryMode DeliveryMode { get; set; }
 
         [DataMember(Name = "delivery_sum")]
-        public double DeliverySum { get; set; }
+        public decimal DeliverySum { get; set; }
 
         [DataMember(Name = "period_min")]
         public int PeriodMin { get; set; }

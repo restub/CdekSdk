@@ -4,3 +4,4 @@
 /.temp
 /CdekApiTests/TestResults/*.trx
 /CdekApiTests/TestResults/TestResults.xml
+/CdekApiTests/*.bak

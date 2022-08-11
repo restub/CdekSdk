@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using CdekApi;
 using CdekApi.DataContracts;
 using NUnit.Framework;
@@ -72,12 +73,20 @@ namespace CdekApiTests
         }
 
         [Test]
+        public void GetCityCode()
+        {
+            var cities = Client.GetCities(new CityRequest { City = "Ростов-на-Дону", Size = 5 });
+            Assert.That(cities, Is.Not.Null);
+            Assert.That(cities.Length, Is.LessThanOrEqualTo(5));
+        }
+
+        [Test]
         public void GetOffices()
         {
             var offices = Client.GetOffices(new OfficeRequest { PostalCode = 125424 });
             Assert.That(offices, Is.Not.Null);
-            Assert.That(offices, Is.Not.Empty); 
-            
+            Assert.That(offices, Is.Not.Empty);
+
             offices = Client.GetOffices(new OfficeRequest { CountryCode = "CN", Lang = Lang.Zho });
             Assert.That(offices, Is.Not.Null);
             Assert.That(offices, Is.Not.Empty);
@@ -89,6 +98,7 @@ namespace CdekApiTests
             var tariffs = Client.CalculateTariffList(new TariffListRequest
             {
                 DeliveryType = DeliveryType.Delivery,
+                Date = DateTime.Today,
                 Lang = Lang.Eng,
                 FromLocation = new Location { CityCode = 270 },
                 ToLocation = new Location { CityCode = 44 },
