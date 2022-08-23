@@ -59,8 +59,13 @@ namespace CdekApi.Toolbox
                     if (isEnumValue)
                     {
                         var valueName = Enum.GetName(nonNullableType, value);
+                        if (valueName == null)
+                        {
+                            valueName = value.ToString();
+                        }
+
                         var field = nonNullableType.GetField(valueName);
-                        var enumMember = field.GetCustomAttribute<EnumMemberAttribute>();
+                        var enumMember = field?.GetCustomAttribute<EnumMemberAttribute>();
                         if (enumMember != null)
                         {
                             valueName = enumMember.Value;

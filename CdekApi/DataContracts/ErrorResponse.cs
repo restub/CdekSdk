@@ -7,7 +7,7 @@ namespace CdekApi.DataContracts
     /// Represents error messages.
     /// </summary>
     [DataContract]
-    public class ErrorResponse
+    public class ErrorResponse : IHasErrors
     {
         [DataMember(Name = "errors")]
         public List<Error> Errors { get; set; }

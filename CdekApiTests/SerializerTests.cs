@@ -59,5 +59,19 @@ namespace CdekApiTests
             Assert.That(date, Is.Not.Null);
             Assert.That(date.Date, Is.EqualTo(new DateTime(2022, 08, 11)));
         }
+
+        [Test]
+        public void EnumSerialization()
+        {
+            // known value
+            var json = Serialize(DayOfWeek.Friday);
+            Assert.That(json, Is.EqualTo("\"Friday\""));
+            var dow = Deserialize<DayOfWeek>("\"Friday\"");
+            Assert.That(dow, Is.EqualTo(DayOfWeek.Friday));
+
+            // unknown value
+            Assert.That(Serialize((DayOfWeek)123), Is.EqualTo("123"));
+            Assert.That(Deserialize<DayOfWeek>("123"), Is.EqualTo((DayOfWeek)123));
+        }
     }
 }

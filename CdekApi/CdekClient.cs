@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -146,6 +147,31 @@ namespace CdekApi
             }
         }
 
+        internal static string GetErrorMessage(IHasErrors errorResponse) =>
+            string.Join(". ", errorResponse?.Errors?.Select(e => e.Message) ?? new[] { string.Empty }
+                .Distinct()
+                .Where(m => !string.IsNullOrWhiteSpace(m)));
+
+        private void ThrowOnFailure(IRestResponse response, IHasErrors errorResponse)
+        {
+            // if a response has errors, treat it as a failure
+            if (errorResponse?.Errors?.Count > 0)
+            {
+                var errorMessage = GetErrorMessage(errorResponse);
+                if (string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    errorMessage = response.ErrorMessage;
+                }
+
+                if (string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    errorMessage = response.Content;
+                }
+                
+                throw new CdekApiException(response.StatusCode, errorMessage, errorResponse, response.ErrorException);
+            }
+        }
+
         /// <summary>
         /// Executes the given request and checks the result.
         /// </summary>
@@ -156,8 +182,18 @@ namespace CdekApi
         {
             PrepareRequest(request, apiMethodName);
             var response = Client.Execute<T>(request);
+
+            // handle REST exceptions
             ThrowOnFailure(response);
-            return response.Data;
+            var result = response.Data;
+
+            // handle application errors
+            if (result is IHasErrors errorResponse && errorResponse.Errors != null)
+            {
+                ThrowOnFailure(response, errorResponse);
+            }
+
+            return result;
         }
 
         /// <summary>

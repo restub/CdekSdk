@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization;
 using CdekApi.DataContracts;
@@ -18,11 +19,14 @@ namespace CdekApi
         /// <param name="message">Error message.</param>
         /// <param name="errorResponse"><see cref="ErrorResponse"/> instance, if available.</param>
         /// <param name="innerException">Inner <see cref="Exception"/> instance.</param>
-        public CdekApiException(HttpStatusCode code, string message, ErrorResponse errorResponse, Exception innerException)
+        public CdekApiException(HttpStatusCode code, string message, IHasErrors errorResponse, Exception innerException)
             : base(GetMessage(code, message), innerException)
         {
             StatusCode = code;
-            ErrorResponse = errorResponse;
+            ErrorResponse = new ErrorResponse
+            {
+                Errors = errorResponse?.Errors ?? new List<Error>()
+            };
         }
 
         private static string GetMessage(HttpStatusCode code, string message)

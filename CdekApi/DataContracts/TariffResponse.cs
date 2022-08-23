@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace CdekApi.DataContracts
 {
@@ -8,7 +9,7 @@ namespace CdekApi.DataContracts
     /// RU: https://api-docs.cdek.ru/63345430.html
     /// </summary>
     [DataContract]
-    public class TariffResponse
+    public class TariffResponse : IHasErrors
     {
         [DataMember(Name = "delivery_sum")]
         public decimal DeliverySum { get; set; }
@@ -30,5 +31,8 @@ namespace CdekApi.DataContracts
 
         [DataMember(Name = "services")]
         public object[] Services { get; set; }
+
+        [DataMember(Name = "errors")]
+        public List<Error> Errors { get; set; }
     }
 }

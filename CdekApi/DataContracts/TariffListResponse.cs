@@ -13,9 +13,12 @@ namespace CdekApi.DataContracts
     /// RU: https://api-docs.cdek.ru/63345519.html
     /// </summary>
     [DataContract]
-    public class TariffListResponse
+    public class TariffListResponse : IHasErrors
     {
         [DataMember(Name = "tariff_codes")]
         public TariffInfo[] TariffCodes { get; set; }
+
+        [DataMember(Name = "errors")]
+        public List<Error> Errors { get; set; }
     }
 }

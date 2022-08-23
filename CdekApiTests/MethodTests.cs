@@ -75,13 +75,13 @@ namespace CdekApiTests
         [Test]
         public void GetCityCode()
         {
-            var cities = Client.GetCities(new CityRequest { City = "Ростов-на-Дону", Size = 5 });
+            var cities = Client.GetCities(new CityRequest { City = "Ростов-на-Дону" });
             Assert.That(cities, Is.Not.Null);
             Assert.That(cities.Length, Is.EqualTo(1));
             Assert.That(cities[0], Is.Not.Null);
             Assert.That(cities[0].Code, Is.EqualTo(438));
             
-            cities = Client.GetCities(new CityRequest { City = "РОСТОВ-НА-ДОНУ", Size = 5 });
+            cities = Client.GetCities(new CityRequest { City = "РОСТОВ-НА-ДОНУ" });
             Assert.That(cities, Is.Not.Null);
             Assert.That(cities.Length, Is.EqualTo(1));
             Assert.That(cities[0], Is.Not.Null);
@@ -104,6 +104,12 @@ namespace CdekApiTests
             Assert.That(cities.Length, Is.EqualTo(1));
             Assert.That(cities[0], Is.Not.Null);
             Assert.That(cities[0].Code, Is.EqualTo(44));
+
+            cities = Client.GetCities(new CityRequest { City = "Москва", PostalCode = "109125" });
+            Assert.That(cities, Is.Not.Null);
+            Assert.That(cities.Length, Is.EqualTo(1));
+            Assert.That(cities[0], Is.Not.Null);
+            Assert.That(cities[0].Code, Is.EqualTo(44));
         }
 
         [Test]
@@ -119,7 +125,7 @@ namespace CdekApiTests
         }
 
         [Test]
-        public void CalculateTariffList()
+        public void CalculateTariffListSucceeds()
         {
             var tariffs = Client.CalculateTariffList(new TariffListRequest
             {
@@ -146,7 +152,57 @@ namespace CdekApiTests
         }
 
         [Test]
-        public void CalculateTariff()
+        public void CalculateTariffListFails()
+        {
+            // [from_location] is empty
+            Assert.That(() =>
+            {
+                Client.CalculateTariffList(new TariffListRequest
+                {
+                    DeliveryType = DeliveryType.Delivery,
+                    Date = DateTime.Today,
+                    Lang = Lang.Eng,
+                    FromLocation = null,
+                    ToLocation = new Location { CityCode = 44 },
+                    Packages = new[]
+                    {
+                        new PackageSize
+                        {
+                            Weight = 4000,
+                            Height = 10,
+                            Width = 10,
+                            Length = 10
+                        }
+                    }
+                });
+            }, Throws.TypeOf<CdekApiException>().With.Message.Contains("from_location"));
+
+            // Sender city is not specified
+            Assert.That(() =>
+            {
+                Client.CalculateTariffList(new TariffListRequest
+                {
+                    DeliveryType = DeliveryType.Delivery,
+                    Date = DateTime.Today,
+                    Lang = Lang.Eng,
+                    FromLocation = new Location { Address = "None" },
+                    ToLocation = new Location { CityCode = 44 },
+                    Packages = new[]
+                    {
+                        new PackageSize
+                        {
+                            Weight = 4000,
+                            Height = 10,
+                            Width = 10,
+                            Length = 10
+                        }
+                    }
+                });
+            }, Throws.TypeOf<CdekApiException>().With.Message.Contains("Sender"));
+        }
+
+        [Test]
+        public void CalculateTariffSucceeds()
         {
             var tariff = Client.CalculateTariff(new TariffRequest
             {
@@ -167,6 +223,54 @@ namespace CdekApiTests
             });
 
             Assert.That(tariff, Is.Not.Null);
+        }
+
+        [Test]
+        public void CalculateTariffFails()
+        {
+            // [from_location] is empty
+            Assert.That(() =>
+            {
+                Client.CalculateTariff(new TariffRequest
+                {
+                    DeliveryType = DeliveryType.Delivery,
+                    TariffCode = 480,
+                    FromLocation = null,
+                    ToLocation = new Location { CityCode = 44 },
+                    Packages = new[]
+                    {
+                        new PackageSize
+                        {
+                            Weight = 4000,
+                            Height = 10,
+                            Width = 10,
+                            Length = 10
+                        }
+                    }
+                });
+            }, Throws.TypeOf<CdekApiException>().With.Message.Contains("from_location"));
+
+            // не указан город отправителя
+            Assert.That(() =>
+            {
+                Client.CalculateTariff(new TariffRequest
+                {
+                    DeliveryType = DeliveryType.Delivery,
+                    TariffCode = 480,
+                    FromLocation = new Location { Address = "Null" },
+                    ToLocation = new Location { CityCode = 44 },
+                    Packages = new[]
+                    {
+                        new PackageSize
+                        {
+                            Weight = 4000,
+                            Height = 10,
+                            Width = 10,
+                            Length = 10
+                        }
+                    }
+                });
+            }, Throws.TypeOf<CdekApiException>().With.Message.Contains("отправителя"));
         }
     }
 }
