@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CdekApi.DataContracts
 {
@@ -22,7 +18,7 @@ namespace CdekApi.DataContracts
         public string Name { get; set; }
 
         [DataMember(Name = "location")]
-        public Location Location { get; set; } // TODO: change to OfficeLocation
+        public OfficeLocation Location { get; set; }
 
         [DataMember(Name = "address_comment")]
         public string AddressComment { get; set; }

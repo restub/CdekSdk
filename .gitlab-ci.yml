@@ -20,7 +20,6 @@ unit_tests:
     - dotnet test CdekSdk.sln --logger "trx;LogFileName=TestResults.trx"
     - echo Converting test results
     - trx2junit CdekApi.Tests\TestResults\TestResults.trx
-    - echo Done
   artifacts:
     paths:
       - CdekApi.Tests\TestResults\TestResults.trx
