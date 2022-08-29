@@ -2,6 +2,5 @@
 /**/bin
 /**/obj
 /.temp
-/CdekApiTests/TestResults/*.trx
-/CdekApiTests/TestResults/TestResults.xml
-/CdekApiTests/*.bak
+/CdekApi.Tests/TestResults/*.*
+/CdekApi.Tests/*.bak

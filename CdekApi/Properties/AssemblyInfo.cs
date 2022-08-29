@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("CdekApiTests")]
+[assembly:InternalsVisibleTo("CdekApi.Tests")]
