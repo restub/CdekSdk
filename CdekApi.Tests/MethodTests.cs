@@ -4,7 +4,7 @@ using CdekApi;
 using CdekApi.DataContracts;
 using NUnit.Framework;
 
-namespace CdekApiTests
+namespace CdekApi.Tests
 {
     [TestFixture]
     public class MethodTests
@@ -80,7 +80,7 @@ namespace CdekApiTests
             Assert.That(cities.Length, Is.EqualTo(1));
             Assert.That(cities[0], Is.Not.Null);
             Assert.That(cities[0].Code, Is.EqualTo(438));
-            
+
             cities = Client.GetCities(new CityRequest { City = "РОСТОВ-НА-ДОНУ" });
             Assert.That(cities, Is.Not.Null);
             Assert.That(cities.Length, Is.EqualTo(1));

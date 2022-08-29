@@ -6,7 +6,7 @@ using CdekApi.Toolbox;
 using NUnit.Framework;
 using RestSharp;
 
-namespace CdekApiTests
+namespace CdekApi.Tests
 {
     [TestFixture]
     public class ParameterHelperTests

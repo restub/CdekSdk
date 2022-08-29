@@ -4,7 +4,7 @@ using CdekApi.Toolbox;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace CdekApiTests
+namespace CdekApi.Tests
 {
     [TestFixture]
     public class SerializerTests

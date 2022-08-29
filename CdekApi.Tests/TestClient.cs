@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CdekApi;
 using NUnit.Framework;
 
-namespace CdekApiTests
+namespace CdekApi.Tests
 {
     public class TestClient : CdekClient
     {

@@ -2,7 +2,7 @@
 using CdekApi.DataContracts;
 using NUnit.Framework;
 
-namespace CdekApiTests
+namespace CdekApi.Tests
 {
     [TestFixture]
     public class AuthTests
