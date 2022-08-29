@@ -22,11 +22,11 @@ unit_tests:
   script:
     # building again the solution
     - dotnet test CdekSdk.sln --logger "trx;LogFileName=TestResults.trx"
-    - trx2junit CdekApiTests\TestResults\TestResults.trx
+    - trx2junit CdekApi.Tests\TestResults\TestResults.trx
   artifacts:
     paths:
-      - CdekApiTests\TestResults\TestResults.trx
+      - CdekApi.Tests\TestResults\TestResults.trx
     reports:
       junit:
-        - CdekApiTests\TestResults\TestResults.xml
+        - CdekApi.Tests\TestResults\TestResults.xml
     expire_in: 1 day
