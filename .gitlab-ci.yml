@@ -19,13 +19,13 @@ unit_tests:
     # building again the solution
     - dotnet test CdekSdk.sln --logger "trx;LogFileName=TestResults.trx"
     - echo Converting test results
-    - trx2junit CdekApi.Tests\TestResults\TestResults.trx
+    - trx2junit CdekSdk.Tests\TestResults\TestResults.trx
   artifacts:
     paths:
-      - CdekApi.Tests\TestResults\TestResults.trx
+      - CdekSdk.Tests\TestResults\TestResults.trx
     reports:
       junit:
-        - CdekApi.Tests\TestResults\TestResults.xml
+        - CdekSdk.Tests\TestResults\TestResults.xml
     expire_in: 1 day
 
 publish:
@@ -34,5 +34,5 @@ publish:
     - dotnet pack -c Release CdekSdk.sln
   artifacts:
     paths:
-      - CdekApi\bin\Release\*.nupkg
-      - CdekApi\bin\Release\*.snupkg
+      - CdekSdk\bin\Release\*.nupkg
+      - CdekSdk\bin\Release\*.snupkg
