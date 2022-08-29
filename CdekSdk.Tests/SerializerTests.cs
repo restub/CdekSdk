@@ -48,9 +48,10 @@ namespace CdekSdk.Tests
             var json = Serialize(date);
             Assert.That(json, Is.Not.Empty);
 
-            // note: local time zone can be different
+            // note: time zone can be different, i.e. 2022-08-29T21:25:00+0300 or +0700 or whatever
             Assert.That(json, Does.StartWith("\"2022-08-29T21:25:00+"));
             Assert.That(json, Does.EndWith("00\""));
+            Assert.That(json, Does.Match("\"2022\\-08\\-29T21\\:25\\:00\\+\\d\\d00\""));
 
             var des = Deserialize(json, date);
             Assert.That(des, Is.Not.Null);
