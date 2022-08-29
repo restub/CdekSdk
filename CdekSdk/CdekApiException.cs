@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization;
-using CdekApi.DataContracts;
+using CdekSdk.DataContracts;
 
-namespace CdekApi
+namespace CdekSdk
 {
     /// <summary>
     /// CDEK API Exception.

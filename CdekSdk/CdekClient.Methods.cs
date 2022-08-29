@@ -1,7 +1,7 @@
-﻿using CdekApi.DataContracts;
-using CdekApi.Toolbox;
+﻿using CdekSdk.DataContracts;
+using CdekSdk.Toolbox;
 
-namespace CdekApi
+namespace CdekSdk
 {
     /// <remarks>
     /// CDEK API Client, methods.

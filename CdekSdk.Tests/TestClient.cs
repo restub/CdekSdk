@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CdekApi;
+using CdekSdk;
 using NUnit.Framework;
 
-namespace CdekApi.Tests
+namespace CdekSdk.Tests
 {
     public class TestClient : CdekClient
     {

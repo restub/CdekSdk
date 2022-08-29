@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace CdekApi.DataContracts
+namespace CdekSdk.DataContracts
 {
     /// <summary>
     /// Represents error messages.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace CdekApi.Toolbox
+namespace CdekSdk.Toolbox
 {
     /// <summary>
     /// Dependency-free JSON formatter.

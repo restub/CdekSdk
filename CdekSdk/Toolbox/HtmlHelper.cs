@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace CdekApi.Toolbox
+namespace CdekSdk.Toolbox
 {
     internal static class HtmlHelper
     {

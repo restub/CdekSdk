@@ -4,11 +4,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml;
-using CdekApi.DataContracts;
-using CdekApi.Toolbox;
+using CdekSdk.DataContracts;
+using CdekSdk.Toolbox;
 using RestSharp;
 
-namespace CdekApi
+namespace CdekSdk
 {
     /// <summary>
     /// CDEK API Client.
@@ -167,7 +167,7 @@ namespace CdekApi
                 {
                     errorMessage = response.Content;
                 }
-                
+
                 throw new CdekApiException(response.StatusCode, errorMessage, errorResponse, response.ErrorException);
             }
         }

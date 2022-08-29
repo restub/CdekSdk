@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CdekApi.DataContracts;
+using CdekSdk.DataContracts;
 
-namespace CdekApi
+namespace CdekSdk
 {
     /// <summary>
     /// CDEK API Credentials.

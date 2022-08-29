@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Converters;
 
-namespace CdekApi.Toolbox
+namespace CdekSdk.Toolbox
 {
     /// <summary>
     /// Some date properties don't have the time.

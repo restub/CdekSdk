@@ -1,8 +1,8 @@
-﻿using CdekApi.DataContracts;
+﻿using CdekSdk.DataContracts;
 using RestSharp;
 using RestSharp.Authenticators;
 
-namespace CdekApi
+namespace CdekSdk
 {
     /// <summary>
     /// CDEK API authenticator using credentials.

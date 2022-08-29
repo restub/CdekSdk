@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace CdekApi.DataContracts
+namespace CdekSdk.DataContracts
 {
     /// <summary>
     /// Represents the dimensions and weight of a package to be delivered.

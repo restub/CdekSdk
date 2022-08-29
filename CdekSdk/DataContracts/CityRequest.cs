@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace CdekApi.DataContracts
+namespace CdekSdk.DataContracts
 {
     [DataContract]
     public class CityRequest

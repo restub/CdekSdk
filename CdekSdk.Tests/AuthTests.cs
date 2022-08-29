@@ -1,8 +1,8 @@
 ﻿using System.Text;
-using CdekApi.DataContracts;
+using CdekSdk.DataContracts;
 using NUnit.Framework;
 
-namespace CdekApi.Tests
+namespace CdekSdk.Tests
 {
     [TestFixture]
     public class AuthTests

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace CdekApi.DataContracts
+namespace CdekSdk.DataContracts
 {
     /// <summary>
     /// Single error message and code.

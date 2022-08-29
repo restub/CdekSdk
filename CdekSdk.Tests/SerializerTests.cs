@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using CdekApi.Toolbox;
+using CdekSdk.Toolbox;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace CdekApi.Tests
+namespace CdekSdk.Tests
 {
     [TestFixture]
     public class SerializerTests

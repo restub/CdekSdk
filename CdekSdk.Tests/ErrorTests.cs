@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using CdekApi;
-using CdekApi.DataContracts;
-using CdekApi.Toolbox;
+using CdekSdk;
+using CdekSdk.DataContracts;
+using CdekSdk.Toolbox;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace CdekApi.Tests
+namespace CdekSdk.Tests
 {
     [TestFixture]
     public class ErrorTests

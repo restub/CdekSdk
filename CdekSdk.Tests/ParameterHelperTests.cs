@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using CdekApi.DataContracts;
-using CdekApi.Toolbox;
+using CdekSdk.DataContracts;
+using CdekSdk.Toolbox;
 using NUnit.Framework;
 using RestSharp;
 
-namespace CdekApi.Tests
+namespace CdekSdk.Tests
 {
     [TestFixture]
     public class ParameterHelperTests

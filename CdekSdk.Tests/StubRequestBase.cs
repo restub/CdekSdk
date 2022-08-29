@@ -6,7 +6,7 @@ using RestSharp;
 using RestSharp.Serialization.Xml;
 using RestSharp.Serializers;
 
-namespace CdekApi.Tests
+namespace CdekSdk.Tests
 {
     public class StubRequestBase : IRestRequest
     {

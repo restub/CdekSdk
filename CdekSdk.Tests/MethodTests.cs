@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
-using CdekApi;
-using CdekApi.DataContracts;
+using CdekSdk;
+using CdekSdk.DataContracts;
 using NUnit.Framework;
 
-namespace CdekApi.Tests
+namespace CdekSdk.Tests
 {
     [TestFixture]
     public class MethodTests

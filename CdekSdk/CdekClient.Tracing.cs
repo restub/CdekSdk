@@ -4,9 +4,9 @@ using System.Globalization;
 using System.Linq;
 using RestSharp;
 using RestSharp.Serialization.Json;
-using CdekApi.Toolbox;
+using CdekSdk.Toolbox;
 
-namespace CdekApi
+namespace CdekSdk
 {
     /// <remarks>
     /// CDEK API Client, tracing primitives.

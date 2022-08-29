@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CdekApi.DataContracts
+namespace CdekSdk.DataContracts
 {
     /// <summary>
     /// Interface for REST responses containing error collections.

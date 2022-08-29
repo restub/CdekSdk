@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Serialization;
 
-namespace CdekApi.Toolbox
+namespace CdekSdk.Toolbox
 {
     /// <summary>
     /// Newtonsoft.Json serializer.

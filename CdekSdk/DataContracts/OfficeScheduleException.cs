@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using CdekApi.Toolbox;
+using CdekSdk.Toolbox;
 using Newtonsoft.Json;
 
-namespace CdekApi.DataContracts
+namespace CdekSdk.DataContracts
 {
     /// <summary>
     /// Represents the office schedule.
