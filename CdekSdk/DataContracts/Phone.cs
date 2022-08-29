@@ -3,7 +3,7 @@
 namespace CdekSdk.DataContracts
 {
     /// <summary>
-    /// Represents the office phone.
+    /// Represents the office or sender phone.
     /// EN: https://api-docs.cdek.ru/36990336.html
     /// RU: https://api-docs.cdek.ru/36982648.html
     /// </summary>

@@ -34,5 +34,4 @@ namespace CdekSdk.Toolbox
             return string.Join(Environment.NewLine, lines);
         }
     }
-
 }

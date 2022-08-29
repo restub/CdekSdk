@@ -59,11 +59,11 @@ namespace CdekSdk.DataContracts
         [DataMember(Name = "packages")]
         public List<Package> Packages { get; set; }
 
-        //[DataMember(Name = "recipient")]
-        //public Recipient Recipient { get; set; }
+        [DataMember(Name = "sender")]
+        public DeliveryOrderContactPerson Sender { get; set; } // not required for online e-shop orders
 
-        //[DataMember(Name = "sender")]
-        //public Sender Sender { get; set; }
+        [DataMember(Name = "recipient")]
+        public DeliveryOrderContactPerson Recipient { get; set; }
 
         //[DataMember(Name = "services")]
         //public List<Service> Services { get; set; }
