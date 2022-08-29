@@ -23,7 +23,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: | 
-          4.6.2
           6.0.x
 
     - name: Restore dependencies
