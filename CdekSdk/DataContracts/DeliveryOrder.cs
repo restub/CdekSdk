@@ -51,10 +51,10 @@ namespace CdekSdk.DataContracts
         public List<DeliveryRecipientCostAdv> DeliveryRecipientCostAdv { get; set; }
 
         [DataMember(Name = "from_location")]
-        public Location FromLocation { get; set; } // TODO: replace with DeliveryLocation
+        public DeliveryOrderLocation FromLocation { get; set; }
 
         [DataMember(Name = "to_location")]
-        public Location ToLocation { get; set; } // TODO: replace with DeliveryLocation
+        public DeliveryOrderLocation ToLocation { get; set; }
 
         [DataMember(Name = "packages")]
         public List<Package> Packages { get; set; }
