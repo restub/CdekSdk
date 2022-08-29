@@ -10,6 +10,7 @@ build:
   artifacts:
     paths:
       - CdekApi\bin\Release\*.nupkg
+      - CdekApi\bin\Release\*.snupkg
 
 unit_tests:
   stage: unit tests
