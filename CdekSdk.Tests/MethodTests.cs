@@ -127,15 +127,19 @@ namespace CdekSdk.Tests
         [Test]
         public void CalculateTariffListSucceeds()
         {
-            var tariffs = Client.CalculateTariffList(new TariffListRequest
+            var retryCount = 3;
+
+            for (var i = 0; i < retryCount; i++)
             {
-                DeliveryType = DeliveryType.Delivery,
-                Date = DateTime.Today,
-                Lang = Lang.Eng,
-                FromLocation = new Location { CityCode = 270 },
-                ToLocation = new Location { CityCode = 44 },
-                Packages = new[]
+                var tariffs = Client.CalculateTariffList(new TariffListRequest
                 {
+                    DeliveryType = DeliveryType.Delivery,
+                    Date = DateTime.Today,
+                    Lang = Lang.Eng,
+                    FromLocation = new Location { CityCode = 270 },
+                    ToLocation = new Location { CityCode = 44 },
+                    Packages = new[]
+                    {
                     new PackageSize
                     {
                         Weight = 4000,
@@ -144,11 +148,23 @@ namespace CdekSdk.Tests
                         Length = 10
                     }
                 }
-            });
+                });
 
-            Assert.That(tariffs, Is.Not.Null);
-            Assert.That(tariffs.TariffCodes, Is.Not.Null);
-            Assert.That(tariffs.TariffCodes, Is.Not.Empty); // sometimes it's empty!
+                Assert.That(tariffs, Is.Not.Null);
+                Assert.That(tariffs.TariffCodes, Is.Not.Null);
+
+                // test server occasionally fails to return any items
+                if (!tariffs.TariffCodes.Any())
+                {
+                    // retry if it's empty
+                    continue;
+                }
+
+                Assert.That(tariffs.TariffCodes, Is.Not.Empty);
+                return;
+            }
+
+            Assert.Fail("CalculateTariffList failed to return any tariffs " + retryCount + " times in a row. Failing...");
         }
 
         [Test]
