@@ -1,6 +1,6 @@
 /.vs
 /**/bin
 /**/obj
+/**/*.bak
 /.temp
-/CdekApi.Tests/TestResults/*.*
-/CdekApi.Tests/*.bak
+/CdekSdk.Tests/TestResults/*.*
