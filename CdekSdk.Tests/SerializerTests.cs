@@ -29,7 +29,7 @@ namespace CdekSdk.Tests
                 str = "string",
                 num = 123,
                 dec = 456.78,
-                date = new DateTime(2022, 08, 11, 13, 06, 00),
+                date = new DateTimeOffset(2022, 08, 11, 13, 06, 00, TimeSpan.FromHours(3)),
             };
 
             var json = Serialize(obj);
@@ -41,6 +41,22 @@ namespace CdekSdk.Tests
             Assert.That(des, Is.EqualTo(obj));
         }
 
+        [Test]
+        public void DateTimeSerialization()
+        {
+            var date = new DateTime(2022, 08, 29, 21, 25, 00);
+            var json = Serialize(date);
+            Assert.That(json, Is.Not.Empty);
+
+            // note: local time zone can be different
+            Assert.That(json, Does.StartWith("\"2022-08-29T21:25:00+"));
+            Assert.That(json, Does.EndWith("00\""));
+
+            var des = Deserialize(json, date);
+            Assert.That(des, Is.Not.Null);
+            Assert.That(des, Is.EqualTo(date));
+        }
+
         [DataContract]
         public class NoTime
         {
@@ -49,7 +65,7 @@ namespace CdekSdk.Tests
         }
 
         [Test]
-        public void DateTimeSerialization()
+        public void DateNoTimeSerialization()
         {
             var obj = new NoTime { Date = new DateTime(2022, 08, 11) };
             var json = Serialize(obj);
