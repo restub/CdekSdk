@@ -140,14 +140,14 @@ namespace CdekSdk.Tests
                     ToLocation = new Location { CityCode = 44 },
                     Packages = new[]
                     {
-                    new PackageSize
-                    {
-                        Weight = 4000,
-                        Height = 10,
-                        Width = 10,
-                        Length = 10
+                        new PackageSize
+                        {
+                            Weight = 4000,
+                            Height = 10,
+                            Width = 10,
+                            Length = 10
+                        }
                     }
-                }
                 });
 
                 Assert.That(tariffs, Is.Not.Null);
