@@ -20,5 +20,8 @@ namespace CdekSdk.DataContracts
 
         [DataMember(Name = "errors")]
         public List<Error> Errors { get; set; }
+
+        public IEnumerable<Error> GetErrors() =>
+            Errors ?? Enumerable.Empty<Error>();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 using CdekSdk.DataContracts;
@@ -25,7 +26,7 @@ namespace CdekSdk
             StatusCode = code;
             ErrorResponse = new ErrorResponse
             {
-                Errors = errorResponse?.Errors ?? new List<Error>()
+                Errors = (errorResponse?.GetErrors() ?? Enumerable.Empty<Error>()).ToList(),
             };
         }
 

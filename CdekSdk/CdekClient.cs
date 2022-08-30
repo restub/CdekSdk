@@ -86,6 +86,18 @@ namespace CdekSdk
             }
         }
 
+        private void ThrowOnFailure<T>(IRestResponse<T> response)
+        {
+            // if response is successful, but it has errors, treat is as failure
+            if (response.Data is IHasErrors hasErrors && hasErrors.GetErrors().Any())
+            {
+                ThrowOnFailure(response, hasErrors);
+                return;
+            }
+
+            ThrowOnFailure(response as IRestResponse);
+        }
+
         private void ThrowOnFailure(IRestResponse response)
         {
             if (!response.IsSuccessful)
@@ -148,14 +160,14 @@ namespace CdekSdk
         }
 
         internal static string GetErrorMessage(IHasErrors errorResponse) =>
-            string.Join(". ", errorResponse?.Errors?.Select(e => e.Message) ?? new[] { string.Empty }
+            string.Join(". ", errorResponse?.GetErrors()?.Select(e => e.Message) ?? new[] { string.Empty }
                 .Distinct()
                 .Where(m => !string.IsNullOrWhiteSpace(m)));
 
         private void ThrowOnFailure(IRestResponse response, IHasErrors errorResponse)
         {
             // if a response has errors, treat it as a failure
-            if (errorResponse?.Errors?.Count > 0)
+            if (errorResponse?.GetErrors()?.Any() ?? false)
             {
                 var errorMessage = GetErrorMessage(errorResponse);
                 if (string.IsNullOrWhiteSpace(errorMessage))
@@ -185,15 +197,7 @@ namespace CdekSdk
 
             // handle REST exceptions
             ThrowOnFailure(response);
-            var result = response.Data;
-
-            // handle application errors
-            if (result is IHasErrors errorResponse && errorResponse.Errors != null)
-            {
-                ThrowOnFailure(response, errorResponse);
-            }
-
-            return result;
+            return response.Data;
         }
 
         /// <summary>

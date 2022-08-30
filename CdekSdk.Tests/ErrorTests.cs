@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using CdekSdk;
+using System.Linq;
 using CdekSdk.DataContracts;
-using CdekSdk.Toolbox;
-using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace CdekSdk.Tests
@@ -29,6 +26,28 @@ namespace CdekSdk.Tests
             });
 
             Assert.That(msg, Is.EqualTo("Hello. Cruel. World"));
+        }
+
+        [Test]
+        public void EmptyResponseGetErrorsDoesntThrow()
+        {
+            // all DTO types implementing IHasErrors interface
+            var errorEnabledResponseTypes =
+                from t in typeof(IHasErrors).Assembly.GetTypes()
+                where t.GetInterfaces().Contains(typeof(IHasErrors))
+                select t;
+
+            var responseTypes = errorEnabledResponseTypes.ToArray();
+            Assert.That(responseTypes, Is.Not.Null.Or.Empty);
+            Assert.That(responseTypes.Length, Is.GreaterThan(3));
+
+            foreach (var t in responseTypes)
+            {
+                var emptyResponse = Activator.CreateInstance(t) as IHasErrors;
+                Assert.That(emptyResponse, Is.Not.Null);
+                Assert.That(emptyResponse.GetErrors(), Is.Not.Null);
+                Assert.That(emptyResponse.GetErrors().Any(), Is.False);
+            }
         }
     }
 }

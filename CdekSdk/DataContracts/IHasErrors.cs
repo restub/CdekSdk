@@ -10,6 +10,6 @@ namespace CdekSdk.DataContracts
         /// <summary>
         /// Gets the errors.
         /// </summary>
-        List<Error> Errors { get; }
+        IEnumerable<Error> GetErrors();
     }
 }

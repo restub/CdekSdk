@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CdekSdk;
 using CdekSdk.DataContracts;
 using NUnit.Framework;
 
@@ -294,7 +293,8 @@ namespace CdekSdk.Tests
         public void CreateDeliveryOrderFails()
         {
             // internal server error
-            //Assert.That(() => Client.CreateDeliveryOrder(null), Throws.TypeOf<CdekApiException>().With.Message.Contains("Internal"));
+            Assert.That(() => Client.CreateDeliveryOrder(null), 
+                Throws.TypeOf<CdekApiException>().With.Message.Contains("Internal"));
 
             // to_location.address is empty
             Assert.That(() => Client.CreateDeliveryOrder(new DeliveryOrderRequest
@@ -347,7 +347,68 @@ namespace CdekSdk.Tests
                     },
                 },
             }),
-            Throws.TypeOf<CdekApiException>().With.Message.Contain("location.address"));
+            Throws.TypeOf<CdekApiException>().With.Message.Contain("location.address").And.Message.Contain("empty"));
+        }
+
+        [Test]
+        public void CreateDeliveryOrderSucceeds()
+        {
+            var response = Client.CreateDeliveryOrder(new DeliveryOrderRequest
+            {
+                DeliveryType = DeliveryType.Delivery,
+                Comment = "Test order",
+                FromLocation = new DeliveryOrderLocation
+                {
+                    City = "Москва",
+                    Address = "Русаковская улица, 31",
+                    Latitude = 55.788576m,
+                    Longitude = 37.678685m,
+                },
+                ToLocation = new DeliveryOrderLocation
+                {
+                    City = "Москва",
+                    Address = "Русаковская улица, 26к1",
+                    Latitude = 55.789011m,
+                    Longitude = 37.682035m,
+                },
+                TariffCode = 480,
+                Packages = new List<Package>()
+                {
+                    new Package
+                    {
+                        Number = "1",
+                        Comments = "Test",
+                        Weight = 1000,
+                        Width = 10,
+                        Height = 10,
+                        Length = 10,
+                    },
+                },
+                Sender = new DeliveryOrderContactPerson
+                {
+                    CompanyName = "Burattino",
+                    ContactPersonName = "Basilio",
+                    Email = "basilio@example.com",
+                    Phones = new List<Phone>
+                    {
+                        new Phone { Number = "+71234567890" },
+                    },
+                },
+                Recipient = new DeliveryOrderContactPerson
+                {
+                    CompanyName = "Burattino",
+                    ContactPersonName = "Alice",
+                    Email = "alice@example.com",
+                    Phones = new List<Phone>
+                    {
+                        new Phone { Number = "+79876543210" },
+                    },
+                },
+            });
+
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.Requests, Is.Not.Null.Or.Empty);
+            Assert.That(response.Requests.First().RequestUuid, Is.Not.Null.Or.Empty);
         }
     }
 }
