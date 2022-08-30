@@ -34,7 +34,8 @@ namespace CdekSdk
         public void SetAuthToken(AuthToken authToken)
         {
             AuthHeader = string.IsNullOrWhiteSpace(authToken?.AccessToken) ?
-                null : $"{authToken.TokenType ?? "Bearer"} " + authToken.AccessToken;
+                null : // $"{authToken.TokenType ?? "Bearer"} "
+                "Bearer " + authToken.AccessToken;
         }
 
         public void Authenticate(IRestClient client, IRestRequest request)

@@ -49,5 +49,13 @@ namespace CdekSdk
         /// <param name="request">Delivery options</param>
         public TariffResponse CalculateTariff(TariffRequest request) =>
             Post<TariffResponse>("calculator/tariff", request);
+
+        /// <summary>
+        /// Create delivery order.
+        /// EN: https://api-docs.cdek.ru/33828802.html
+        /// RU: https://api-docs.cdek.ru/29923926.html
+        /// </summary>
+        public DeliveryOrderResponse CreateDeliveryOrder(DeliveryOrderRequest request) =>
+            Post<DeliveryOrderResponse>("orders", request);
     }
 }

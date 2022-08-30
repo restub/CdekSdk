@@ -12,7 +12,7 @@ namespace CdekSdk.DataContracts
     /// RU: https://api-docs.cdek.ru/29923926.html
     /// </summary>
     [DataContract]
-    public class DeliveryOrder
+    public class DeliveryOrderRequest
     {
         [DataMember(Name = "type")]
         public DeliveryType? DeliveryType { get; set; } // default is DeliveryType.OnlineStore
