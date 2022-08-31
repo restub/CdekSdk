@@ -13,7 +13,7 @@
 * Create `CdekClient` using your credentials and connect to either endpoint:
   * `CdekClient.SandboxApiUrl` — for testing
   * `CdekClient.ProductionApiUrl` — for production code
-* Set `CdekClient.Tracer` callback to `Console.WriteLine` or your favorite `Logger.WriteLine` method. 
+* Set `CdekClient.Tracer` callback to `Console.WriteLine` or your favorite logger's `WriteLine` method. 
 * Invoke `CdekClient` methods to calculate delivery tariffs, place orders, etc.
 * Consult the original API documentation for the available methods:
   * [Russian documentation](https://api-docs.cdek.ru/29923741.html)
@@ -134,6 +134,185 @@ var response = Client.CreateDeliveryOrder(new DeliveryOrderRequest
     },
 });
 ```
+
+# Tracing
+
+To enable tracing all http requests and responses, set the `Tracer` property:
+
+```c#
+client.Tracer = Console.WriteLine;
+```
+
+<details>
+  <summary>A typical trace log looks like this:</summary>
+    
+```c
+// GetAuthToken
+-> POST https://api.edu.cdek.ru/v2/oauth/token?parameters
+headers: {
+  X-ApiMethodName = GetAuthToken
+  Accept = application/json, text/json, text/x-json, text/javascript, application/xml, text/xml
+  Content-type = application/json
+}
+body: null
+
+<- OK 200 (OK) https://api.edu.cdek.ru/v2/oauth/token?parameters
+timings: {
+  started: 2022-08-31 15:30:57
+  elapsed: 0:00:00.812
+}
+headers: {
+  Transfer-Encoding = chunked
+  Connection = keep-alive
+  Keep-Alive = timeout=15
+  Vary = Accept-Encoding
+  Pragma = no-cache
+  X-Content-Type-Options = nosniff
+  X-XSS-Protection = 1; mode=block
+  X-Frame-Options = DENY
+  Content-Encoding = 
+  Cache-Control = no-store
+  Content-Type = application/json;charset=utf-8
+  Date = Wed, 31 Aug 2022 12:30:59 GMT
+  Server = QRATOR
+}
+body: {
+  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJvcmRlcjphbGwiLCJwYXltZW50OmFsbCJdLCJleHAiOjE2NjE5NTI2NTksImF1dGhvcml0aWVzIjpbInNoYXJkLWlkOnJ1LTAxIiwiY2xpZW50LWNpdHk60J3QvtCy0L7RgdC40LHQuNGA0YHQuiwg0J3QvtCy0L7RgdC40LHQuNGA0YHQutCw0Y8g0L7QsdC70LDRgdGC0YwiLCJmdWxsLW5hbWU60KLQtdGB0YLQuNGA0L7QstCw0L3QuNC1INCY0L3RgtC10LPRgNCw0YbQuNC4INCY0JwsINCe0JHQqdCV0KHQotCS0J4g0KEg0J7Qk9Cg0JDQndCY0KfQldCd0J3QntCZINCe0KLQktCV0KLQodCi0JLQldCd0J3QntCh0KLQrNCuIiwiYWNjb3VudC1sYW5nOnJ1cyIsImNvbnRyYWN0OtCY0Jwt0KDQpC3Qk9Cb0JMtMjIiLCJhY2NvdW50LXV1aWQ6ZTkyNWJkMGYtMDVhNi00YzU2LWI3MzctNGI5OWMxNGY2NjlhIiwiYXBpLXZlcnNpb246MS4xIiwiY2xpZW50LWlkLWVjNTplZDc1ZWNmNC0zMGVkLTQxNTMtYWZlOS1lYjgwYmI1MTJmMjIiLCJjbGllbnQtaWQtZWM0OjE0MzQ4MjMxIiwic29saWQtYWRkcmVzczpmYWxzZSIsImNvbnRyYWdlbnQtdXVpZDplZDc1ZWNmNC0zMGVkLTQxNTMtYWZlOS1lYjgwYmI1MTJmMjIiXSwianRpIjoiOGQ3MDc0MWYtODc3Ni00MTFjLTgwZjEtZjg3MGI2MDhiYzUyIiwiY2xpZW50X2lkIjoiRU1zY2Q2cjlKbkZpUTNiTG95akpZNmVNNzhKckpjZUkifQ.Ksoyu9zJHSc9AKqfytjwURwO3Eba03y0mC2LcN9cHTzKYJ-fSQzsjTk6z0qI4GeFgMHGrhEfrXPGMr19TwvsaTUKxfTObFnKhaN_xOfCDgZarI_Y5X3_rcGlBMxcbSRQKiKLuZ0c1ob6gTrFo4AuxiD5LyaJJJ4WCQRWkJJJu9zGuE_s2rRwpegcB6B2AqvGlfGrTDvaSgvJqWFAYNkFgGAjDYLvzdIrUD-C0Cad7p6eFvfML68Nh73Y4qityvge1PIZvYaQOAGzP_eeoFoDNxK4ygxqm64wem4umx0pYKZaacdYA6WV-ptfEayfd_Dxq00EGA-z8dYtyD6Y8yToig",
+  "token_type": "bearer",
+  "expires_in": 3599,
+  "scope": "order:all payment:all",
+  "jti": "8d70741f-8776-411c-80f1-f870b608bc52"
+}
+
+// CreateDeliveryOrder
+-> POST https://api.edu.cdek.ru/v2/orders
+headers: {
+  X-ApiMethodName = CreateDeliveryOrder
+  Authorization = Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJvcmRlcjphbGwiLCJwYXltZW50OmFsbCJdLCJleHAiOjE2NjE5NTI2NTksImF1dGhvcml0aWVzIjpbInNoYXJkLWlkOnJ1LTAxIiwiY2xpZW50LWNpdHk60J3QvtCy0L7RgdC40LHQuNGA0YHQuiwg0J3QvtCy0L7RgdC40LHQuNGA0YHQutCw0Y8g0L7QsdC70LDRgdGC0YwiLCJmdWxsLW5hbWU60KLQtdGB0YLQuNGA0L7QstCw0L3QuNC1INCY0L3RgtC10LPRgNCw0YbQuNC4INCY0JwsINCe0JHQqdCV0KHQotCS0J4g0KEg0J7Qk9Cg0JDQndCY0KfQldCd0J3QntCZINCe0KLQktCV0KLQodCi0JLQldCd0J3QntCh0KLQrNCuIiwiYWNjb3VudC1sYW5nOnJ1cyIsImNvbnRyYWN0OtCY0Jwt0KDQpC3Qk9Cb0JMtMjIiLCJhY2NvdW50LXV1aWQ6ZTkyNWJkMGYtMDVhNi00YzU2LWI3MzctNGI5OWMxNGY2NjlhIiwiYXBpLXZlcnNpb246MS4xIiwiY2xpZW50LWlkLWVjNTplZDc1ZWNmNC0zMGVkLTQxNTMtYWZlOS1lYjgwYmI1MTJmMjIiLCJjbGllbnQtaWQtZWM0OjE0MzQ4MjMxIiwic29saWQtYWRkcmVzczpmYWxzZSIsImNvbnRyYWdlbnQtdXVpZDplZDc1ZWNmNC0zMGVkLTQxNTMtYWZlOS1lYjgwYmI1MTJmMjIiXSwianRpIjoiOGQ3MDc0MWYtODc3Ni00MTFjLTgwZjEtZjg3MGI2MDhiYzUyIiwiY2xpZW50X2lkIjoiRU1zY2Q2cjlKbkZpUTNiTG95akpZNmVNNzhKckpjZUkifQ.Ksoyu9zJHSc9AKqfytjwURwO3Eba03y0mC2LcN9cHTzKYJ-fSQzsjTk6z0qI4GeFgMHGrhEfrXPGMr19TwvsaTUKxfTObFnKhaN_xOfCDgZarI_Y5X3_rcGlBMxcbSRQKiKLuZ0c1ob6gTrFo4AuxiD5LyaJJJ4WCQRWkJJJu9zGuE_s2rRwpegcB6B2AqvGlfGrTDvaSgvJqWFAYNkFgGAjDYLvzdIrUD-C0Cad7p6eFvfML68Nh73Y4qityvge1PIZvYaQOAGzP_eeoFoDNxK4ygxqm64wem4umx0pYKZaacdYA6WV-ptfEayfd_Dxq00EGA-z8dYtyD6Y8yToig
+  Accept = application/json, text/json, text/x-json, text/javascript, application/xml, text/xml
+  Content-type = application/json
+}
+body: {
+  "type": "2",
+  "number": null,
+  "tariff_code": 480,
+  "comment": "Test order",
+  "developer_key": null,
+  "shipment_point": null,
+  "delivery_point": null,
+  "date_invoice": null,
+  "shipper_name": null,
+  "shipper_address": null,
+  "delivery_recipient_cost": null,
+  "delivery_recipient_cost_adv": null,
+  "from_location": {
+    "code": null,
+    "fias_guid": null,
+    "postal_code": null,
+    "longitude": 37.678685,
+    "latitude": 55.788576,
+    "country_code": null,
+    "region": null,
+    "region_code": 0,
+    "sub_region": null,
+    "city": "Москва",
+    "address": "Русаковская улица, 31"
+  },
+  "to_location": {
+    "code": null,
+    "fias_guid": null,
+    "postal_code": null,
+    "longitude": 37.682035,
+    "latitude": 55.789011,
+    "country_code": null,
+    "region": null,
+    "region_code": 0,
+    "sub_region": null,
+    "city": "Москва",
+    "address": "Русаковская улица, 26к1"
+  },
+  "packages": [
+    {
+      "number": "1",
+      "comment": "Test",
+      "weight": 1000,
+      "height": 10,
+      "length": 10,
+      "width": 10
+    }
+  ],
+  "sender": {
+    "company": "Burattino",
+    "name": "Basilio",
+    "email": "basilio@example.com",
+    "passport_series": null,
+    "passport_number": null,
+    "passport_date_of_issue": null,
+    "passport_organization": null,
+    "passport_date_of_birth": null,
+    "tin": null,
+    "phones": [
+      {
+        "number": "+71234567890",
+        "additional": null
+      }
+    ]
+  },
+  "recipient": {
+    "company": "Burattino",
+    "name": "Alice",
+    "email": "alice@example.com",
+    "passport_series": null,
+    "passport_number": null,
+    "passport_date_of_issue": null,
+    "passport_organization": null,
+    "passport_date_of_birth": null,
+    "tin": null,
+    "phones": [
+      {
+        "number": "+79876543210",
+        "additional": null
+      }
+    ]
+  },
+  "services": null
+}
+
+<- OK 202 (Accepted) https://api.edu.cdek.ru/v2/orders
+timings: {
+  started: 2022-08-31 15:30:57
+  elapsed: 0:00:01.141
+}
+headers: {
+  Transfer-Encoding = chunked
+  Connection = keep-alive
+  Keep-Alive = timeout=15
+  X-Content-Type-Options = nosniff
+  X-XSS-Protection = 1; mode=block
+  Pragma = no-cache
+  X-Frame-Options = DENY
+  Cache-Control = no-cache, no-store, max-age=0, must-revalidate
+  Content-Type = application/json
+  Date = Wed, 31 Aug 2022 12:30:59 GMT
+  Expires = 0
+  Location = http://atlas-nsk-edu-app-04.node.atlas-nsk.cdek.tech:8939/v2/orders/72753031-7310-4448-b6fa-bf474772be48
+  Server = QRATOR
+}
+body: {
+  "entity": {
+    "uuid": "72753031-7310-4448-b6fa-bf474772be48"
+  },
+  "requests": [
+    {
+      "request_uuid": "538aed98-3c14-4e2c-9ac0-7443f95a7da3",
+      "type": "CREATE",
+      "date_time": "2022-08-31T19:30:53+0700",
+      "state": "ACCEPTED"
+    }
+  ]
+}
+```
+</details>
 
 # SDK versioning
 
