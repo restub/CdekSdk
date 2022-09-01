@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using CdekSdk.DataContracts;
 using NUnit.Framework;
 
@@ -418,6 +419,12 @@ namespace CdekSdk.Tests
         [Test]
         public void GetDeliveryOrderSucceeds()
         {
+            // make sure that delivery order transaction is committed
+            if (DeliveryOrderUuid != null)
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            }
+
             var details = Client.GetDeliveryOrder(DeliveryOrderUuid ?? "72753031-c5c0-4318-b02b-a0cefb7caee4");
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Entity, Is.Not.Null);
