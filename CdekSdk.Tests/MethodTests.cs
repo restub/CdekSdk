@@ -419,21 +419,37 @@ namespace CdekSdk.Tests
         [Test]
         public void GetDeliveryOrderSucceeds()
         {
-            // make sure that delivery order transaction is committed
-            if (DeliveryOrderUuid != null)
+            var retryCount = 3;
+            for (var i = 0; i < retryCount; i++)
             {
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                // make sure that delivery order transaction is committed
+                if (DeliveryOrderUuid != null)
+                {
+                    Thread.Sleep(TimeSpan.FromSeconds(1));
+                }
+
+                try
+                {
+                    var details = Client.GetDeliveryOrder(DeliveryOrderUuid ?? "72753031-c5c0-4318-b02b-a0cefb7caee4");
+                    Assert.That(details, Is.Not.Null);
+                    Assert.That(details.Entity, Is.Not.Null);
+                    Assert.That(details.Entity.Sender, Is.Not.Null);
+                    Assert.That(details.Entity.Recipient, Is.Not.Null);
+                    Assert.That(details.Entity.Sender.Name, Is.EqualTo("Basilio"));
+                    Assert.That(details.Entity.Sender.Company, Is.EqualTo("Burattino"));
+                    Assert.That(details.Entity.Recipient.Name, Is.EqualTo("Alice"));
+                    Assert.That(details.Entity.Recipient.Company, Is.EqualTo("Burattino"));
+                    TestContext.Progress.WriteLine("GetDeliveryOrder succeeded at attempt #" + i);
+                    return;
+                }
+                catch (CdekApiException)
+                {
+                    // order not found, retry
+                    continue;
+                }
             }
 
-            var details = Client.GetDeliveryOrder(DeliveryOrderUuid ?? "72753031-c5c0-4318-b02b-a0cefb7caee4");
-            Assert.That(details, Is.Not.Null);
-            Assert.That(details.Entity, Is.Not.Null);
-            Assert.That(details.Entity.Sender, Is.Not.Null);
-            Assert.That(details.Entity.Recipient, Is.Not.Null);
-            Assert.That(details.Entity.Sender.Name, Is.EqualTo("Basilio"));
-            Assert.That(details.Entity.Sender.Company, Is.EqualTo("Burattino"));
-            Assert.That(details.Entity.Recipient.Name, Is.EqualTo("Alice"));
-            Assert.That(details.Entity.Recipient.Company, Is.EqualTo("Burattino"));
+            Assert.Fail("GetDeliveryOrder failed to return an order for " + retryCount + " times in a row.");
         }
 
         [Test]
