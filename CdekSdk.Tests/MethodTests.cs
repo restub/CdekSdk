@@ -12,7 +12,7 @@ namespace CdekSdk.Tests
     {
         private TestClient Client { get; } = new TestClient();
 
-        [Test, Order(10)]
+        [Test, Ordered]
         public void BadInput()
         {
             var ex = Assert.Throws<CdekApiException>(() => Client.GetRegions(new RegionRequest { Page = 3 }));
@@ -23,7 +23,7 @@ namespace CdekSdk.Tests
             Assert.That(ex.Message, Contains.Substring("empty"));
         }
 
-        [Test, Order(20)]
+        [Test, Ordered]
         public void GetRegions()
         {
             var regions = Client.GetRegions(new RegionRequest { Size = 5 });
@@ -46,7 +46,7 @@ namespace CdekSdk.Tests
             Assert.That(regions.Select(r => r.CountryCode).Distinct().Count(), Is.AnyOf(1, 2));
         }
 
-        [Test, Order(30)]
+        [Test, Ordered]
         public void GetCities()
         {
             var cities = Client.GetCities(new CityRequest { Size = 5 });
@@ -73,7 +73,7 @@ namespace CdekSdk.Tests
             Assert.That(cities.Select(r => r.CountryCode).Distinct().Count(), Is.AnyOf(1, 2));
         }
 
-        [Test, Order(40)]
+        [Test, Ordered]
         public void GetCityCode()
         {
             var cities = Client.GetCities(new CityRequest { City = "Ростов-на-Дону" });
@@ -113,7 +113,7 @@ namespace CdekSdk.Tests
             Assert.That(cities[0].Code, Is.EqualTo(44));
         }
 
-        [Test, Order(50)]
+        [Test, Ordered]
         public void GetOffices()
         {
             var offices = Client.GetOffices(new OfficeRequest { PostalCode = 125424 });
@@ -125,7 +125,7 @@ namespace CdekSdk.Tests
             Assert.That(offices, Is.Not.Empty);
         }
 
-        [Test, Order(60)]
+        [Test, Ordered]
         public void CalculateTariffListSucceeds()
         {
             var retryCount = 3;
@@ -168,7 +168,7 @@ namespace CdekSdk.Tests
             Assert.Fail("CalculateTariffList failed to return any tariffs " + retryCount + " times in a row. Failing...");
         }
 
-        [Test, Order(70)]
+        [Test, Ordered]
         public void CalculateTariffListFails()
         {
             // [from_location] is empty
@@ -218,7 +218,7 @@ namespace CdekSdk.Tests
             }, Throws.TypeOf<CdekApiException>().With.Message.Contains("Sender"));
         }
 
-        [Test, Order(80)]
+        [Test, Ordered]
         public void CalculateTariffSucceeds()
         {
             var tariff = Client.CalculateTariff(new TariffRequest
@@ -242,7 +242,7 @@ namespace CdekSdk.Tests
             Assert.That(tariff, Is.Not.Null);
         }
 
-        [Test, Order(90)]
+        [Test, Ordered]
         public void CalculateTariffFails()
         {
             // [from_location] is empty
@@ -290,7 +290,7 @@ namespace CdekSdk.Tests
             }, Throws.TypeOf<CdekApiException>().With.Message.Contains("отправителя"));
         }
 
-        [Test, Order(100)]
+        [Test, Ordered]
         public void CreateDeliveryOrderFails()
         {
             // internal server error
@@ -351,7 +351,7 @@ namespace CdekSdk.Tests
             Throws.TypeOf<CdekApiException>().With.Message.Contain("location.address").And.Message.Contain("empty"));
         }
 
-        [Test, Order(110)]
+        [Test, Ordered]
         public void CreateDeliveryOrderSucceeds()
         {
             var response = Client.CreateDeliveryOrder(new DeliveryOrderRequest
@@ -416,7 +416,7 @@ namespace CdekSdk.Tests
 
         private string DeliveryOrderUuid { get; set; } // set by CreateDeliveryOrderSucceeds test
 
-        [Test, Order(120)]
+        [Test, Ordered]
         public void GetDeliveryOrderSucceeds()
         {
             var retryCount = 3;
@@ -452,21 +452,21 @@ namespace CdekSdk.Tests
             Assert.Fail("GetDeliveryOrder failed to return an order for " + retryCount + " times in a row.");
         }
 
-        [Test, Order(130)]
+        [Test, Ordered]
         public void GetDeliveryOrderFails()
         {
             Assert.That(() => Client.GetDeliveryOrder("A72932A5-E2DF-4165-9E3E-D79DB17EED81"), // random Guid
                 Throws.TypeOf<CdekApiException>().With.Message.Contain("Entity").And.Message.Contain("not found"));
         }
 
-        [Test, Order(140)]
+        [Test, Ordered]
         public void DeleteDeliveryOrderFails()
         {
             Assert.That(() => Client.DeleteDeliveryOrder("A72932A5-E2DF-4165-9E3E-D79DB17EED81"), // random Guid
                 Throws.TypeOf<CdekApiException>().With.Message.Contain("Entity").And.Message.Contain("not found"));
         }
 
-        [Test, Order(150)]
+        [Test, Ordered]
         public void DeleteDeliveryOrderSucceeds()
         {
             if (DeliveryOrderUuid != null)
