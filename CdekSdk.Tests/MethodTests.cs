@@ -407,11 +407,14 @@ namespace CdekSdk.Tests
             });
 
             Assert.That(response, Is.Not.Null);
+            Assert.That(response.Entity, Is.Not.Null);
+            Assert.That(DeliveryOrderUuid = response.Entity.Uuid, Is.Not.Null);
             Assert.That(response.Requests, Is.Not.Null.Or.Empty);
-            Assert.That(DeliveryOrderUuid = response.Requests.First().RequestUuid, Is.Not.Null.Or.Empty);
+            Assert.That(response.Requests.First().RequestUuid, Is.Not.Null.Or.Empty);
         }
 
-        private string DeliveryOrderUuid { get; set; } = "11c3be95-2ebc-4fb8-86b6-53b54375f22b"; // gets overwritten by CreateDeliveryOrderSucceeds test
+        private string DeliveryOrderUuid { get; set; } =
+            "72753031-c5c0-4318-b02b-a0cefb7caee4"; // gets overwritten by CreateDeliveryOrderSucceeds test
 
         [Test]
         public void GetDeliveryOrderSucceeds()
