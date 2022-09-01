@@ -293,7 +293,7 @@ namespace CdekSdk.Tests
         public void CreateDeliveryOrderFails()
         {
             // internal server error
-            Assert.That(() => Client.CreateDeliveryOrder(null), 
+            Assert.That(() => Client.CreateDeliveryOrder(null),
                 Throws.TypeOf<CdekApiException>().With.Message.Contains("Internal"));
 
             // to_location.address is empty
@@ -328,8 +328,8 @@ namespace CdekSdk.Tests
                 },
                 Sender = new DeliveryOrderContactPerson
                 {
-                    CompanyName = "Burattino",
-                    ContactPersonName = "Basilio",
+                    Company = "Burattino",
+                    Name = "Basilio",
                     Email = "basilio@example.com",
                     Phones = new List<Phone>
                     {
@@ -338,8 +338,8 @@ namespace CdekSdk.Tests
                 },
                 Recipient = new DeliveryOrderContactPerson
                 {
-                    CompanyName = "Burattino",
-                    ContactPersonName = "Alice",
+                    Company = "Burattino",
+                    Name = "Alice",
                     Email = "alice@example.com",
                     Phones = new List<Phone>
                     {
@@ -386,8 +386,8 @@ namespace CdekSdk.Tests
                 },
                 Sender = new DeliveryOrderContactPerson
                 {
-                    CompanyName = "Burattino",
-                    ContactPersonName = "Basilio",
+                    Company = "Burattino",
+                    Name = "Basilio",
                     Email = "basilio@example.com",
                     Phones = new List<Phone>
                     {
@@ -396,8 +396,8 @@ namespace CdekSdk.Tests
                 },
                 Recipient = new DeliveryOrderContactPerson
                 {
-                    CompanyName = "Burattino",
-                    ContactPersonName = "Alice",
+                    Company = "Burattino",
+                    Name = "Alice",
                     Email = "alice@example.com",
                     Phones = new List<Phone>
                     {
@@ -408,7 +408,30 @@ namespace CdekSdk.Tests
 
             Assert.That(response, Is.Not.Null);
             Assert.That(response.Requests, Is.Not.Null.Or.Empty);
-            Assert.That(response.Requests.First().RequestUuid, Is.Not.Null.Or.Empty);
+            Assert.That(DeliveryOrderUuid = response.Requests.First().RequestUuid, Is.Not.Null.Or.Empty);
+        }
+
+        private string DeliveryOrderUuid { get; set; } = "11c3be95-2ebc-4fb8-86b6-53b54375f22b"; // gets overwritten by CreateDeliveryOrderSucceeds test
+
+        [Test]
+        public void GetDeliveryOrderSucceeds()
+        {
+            var details = Client.GetDeliveryOrder(DeliveryOrderUuid);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.Entity, Is.Not.Null);
+            Assert.That(details.Entity.Sender, Is.Not.Null);
+            Assert.That(details.Entity.Recipient, Is.Not.Null);
+            Assert.That(details.Entity.Sender.Name, Is.EqualTo("Basilio"));
+            Assert.That(details.Entity.Sender.Company, Is.EqualTo("Burattino"));
+            Assert.That(details.Entity.Recipient.Name, Is.EqualTo("Alice"));
+            Assert.That(details.Entity.Recipient.Company, Is.EqualTo("Burattino"));
+        }
+
+        [Test]
+        public void GetDeliveryOrderFails()
+        {
+            Assert.That(() => Client.GetDeliveryOrder("A72932A5-E2DF-4165-9E3E-D79DB17EED81"), // random Guid
+                Throws.TypeOf<CdekApiException>().With.Message.Contain("Entity").And.Message.Contain("not found"));
         }
     }
 }

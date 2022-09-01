@@ -14,11 +14,11 @@ namespace CdekSdk.DataContracts
     [DataContract]
     public class DeliveryOrderContactPerson
     {
-        [DataMember(Name = "company")]
-        public string CompanyName { get; set; } // not required for online e-shop orders
-
         [DataMember(Name = "name")]
-        public string ContactPersonName { get; set; } // not required for online e-shop orders
+        public string Name { get; set; } // not required for online e-shop orders
+
+        [DataMember(Name = "company")]
+        public string Company { get; set; } // not required for online e-shop orders
 
         [DataMember(Name = "email")]
         public string Email { get; set; } // not required for online e-shop orders

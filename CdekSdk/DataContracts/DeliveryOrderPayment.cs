@@ -3,12 +3,12 @@
 namespace CdekSdk.DataContracts
 {
     /// <summary>
-    /// Delivery recipient cost, for online orders only.
+    /// Delivery order payments, such as recipient cost, for online orders only.
     /// EN: https://api-docs.cdek.ru/33828802.html
     /// RU: https://api-docs.cdek.ru/29923926.html
     /// </summary>
     [DataContract]
-    public class DeliveryRecipientCost
+    public class DeliveryOrderPayment
     {
         [DataMember(Name = "value")]
         public decimal Value { get; set; }

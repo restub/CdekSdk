@@ -57,5 +57,14 @@ namespace CdekSdk
         /// </summary>
         public DeliveryOrderResponse CreateDeliveryOrder(DeliveryOrderRequest request) =>
             Post<DeliveryOrderResponse>("orders", request);
+
+        /// <summary>
+        /// Get delivery order information.
+        /// EN: https://api-docs.cdek.ru/33828849.html
+        /// RU: https://api-docs.cdek.ru/29923975.html
+        /// </summary>
+        public DeliveryOrderDetails GetDeliveryOrder(string uuid) =>
+            Get<DeliveryOrderDetails>("orders/{uuid}", r => r.AddUrlSegment("uuid", uuid));
+
     }
 }

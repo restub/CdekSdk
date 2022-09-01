@@ -45,7 +45,7 @@ namespace CdekSdk.DataContracts
         public string ShipperAddress { get; set; } // for international online orders only
 
         [DataMember(Name = "delivery_recipient_cost")]
-        public DeliveryRecipientCost DeliveryRecipientCost { get; set; } // for online orders only
+        public DeliveryOrderPayment DeliveryRecipientCost { get; set; } // for online orders only
 
         [DataMember(Name = "delivery_recipient_cost_adv")]
         public List<DeliveryRecipientCostAdv> DeliveryRecipientCostAdv { get; set; }

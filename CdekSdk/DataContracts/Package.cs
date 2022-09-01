@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace CdekSdk.DataContracts
 {
@@ -15,5 +16,8 @@ namespace CdekSdk.DataContracts
 
         [DataMember(Name = "comment")]
         public string Comments { get; set; } // required for delivery type of orders
+
+        [DataMember(Name = "items")]
+        public List<PackageItem> Items { get; set; }
     }
 }
