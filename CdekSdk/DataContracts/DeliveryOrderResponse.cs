@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace CdekSdk.DataContracts
 {
     /// <summary>
-    /// Represents created delivery order information.
+    /// Represents created or deleted delivery order information.
     /// EN: https://api-docs.cdek.ru/33828802.html
     /// RU: https://api-docs.cdek.ru/29923926.html
     /// </summary>

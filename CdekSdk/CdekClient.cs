@@ -326,6 +326,25 @@ namespace CdekSdk
         /// <param name="body">Request body, serialized as string.</param>
         /// <param name="initRequest">IRestRequest initialization.</param>
         /// <param name="apiMethodName">Strong-typed REST API method name, for tracing.</param>
+        public T Delete<T>(string url, object body, Action<IRestRequest> initRequest = null, [CallerMemberName] string apiMethodName = null)
+        {
+            var request = new RestRequest(url, Method.DELETE, DataFormat.Json);
+            if (body != null)
+            {
+                request.AddJsonBody(body);
+            }
+
+            initRequest?.Invoke(request);
+            return Execute<T>(request, apiMethodName);
+        }
+
+        /// <summary>
+        /// Performs DELETE request.
+        /// </summary>
+        /// <param name="url">Resource url.</param>
+        /// <param name="body">Request body, serialized as string.</param>
+        /// <param name="initRequest">IRestRequest initialization.</param>
+        /// <param name="apiMethodName">Strong-typed REST API method name, for tracing.</param>
         public void Delete(string url, object body, Action<IRestRequest> initRequest = null, [CallerMemberName] string apiMethodName = null)
         {
             var request = new RestRequest(url, Method.DELETE, DataFormat.Json);

@@ -66,5 +66,12 @@ namespace CdekSdk
         public DeliveryOrderDetails GetDeliveryOrder(string uuid) =>
             Get<DeliveryOrderDetails>("orders/{uuid}", r => r.AddUrlSegment("uuid", uuid));
 
+        /// <summary>
+        /// Delete delivery order.
+        /// EN: https://api-docs.cdek.ru/33828855.html
+        /// RU: https://api-docs.cdek.ru/29924487.html
+        /// </summary>
+        public DeliveryOrderResponse DeleteDeliveryOrder(string uuid) =>
+            Delete<DeliveryOrderResponse>("orders/{uuid}", null, r => r.AddUrlSegment("uuid", uuid));
     }
 }

@@ -413,13 +413,12 @@ namespace CdekSdk.Tests
             Assert.That(response.Requests.First().RequestUuid, Is.Not.Null.Or.Empty);
         }
 
-        private string DeliveryOrderUuid { get; set; } =
-            "72753031-c5c0-4318-b02b-a0cefb7caee4"; // gets overwritten by CreateDeliveryOrderSucceeds test
+        private string DeliveryOrderUuid { get; set; } // set by CreateDeliveryOrderSucceeds test
 
         [Test]
         public void GetDeliveryOrderSucceeds()
         {
-            var details = Client.GetDeliveryOrder(DeliveryOrderUuid);
+            var details = Client.GetDeliveryOrder(DeliveryOrderUuid ?? "72753031-c5c0-4318-b02b-a0cefb7caee4");
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Entity, Is.Not.Null);
             Assert.That(details.Entity.Sender, Is.Not.Null);
@@ -435,6 +434,33 @@ namespace CdekSdk.Tests
         {
             Assert.That(() => Client.GetDeliveryOrder("A72932A5-E2DF-4165-9E3E-D79DB17EED81"), // random Guid
                 Throws.TypeOf<CdekApiException>().With.Message.Contain("Entity").And.Message.Contain("not found"));
+        }
+
+        [Test]
+        public void DeleteDeliveryOrderFails()
+        {
+            Assert.That(() => Client.DeleteDeliveryOrder("A72932A5-E2DF-4165-9E3E-D79DB17EED81"), // random Guid
+                Throws.TypeOf<CdekApiException>().With.Message.Contain("Entity").And.Message.Contain("not found"));
+        }
+
+        [Test]
+        public void DeleteDeliveryOrderSucceeds()
+        {
+            if (DeliveryOrderUuid != null)
+            {
+                TestContext.Progress.WriteLine("Testing whether delivery order exists: {0}", DeliveryOrderUuid);
+                var order = Client.GetDeliveryOrder(DeliveryOrderUuid);
+                Assert.That(order, Is.Not.Null);
+
+                TestContext.Progress.WriteLine("Deleting DeliveryOrderUuid: {0}", DeliveryOrderUuid);
+                var deleted = Client.DeleteDeliveryOrder(DeliveryOrderUuid);
+                Assert.That(deleted, Is.Not.Null);
+                Assert.That(deleted.Entity, Is.Not.Null);
+                Assert.That(deleted.Entity.Uuid, Is.EqualTo(DeliveryOrderUuid));
+                return;
+            }
+
+            TestContext.Progress.WriteLine("Warning: DeliveryOrderUuid is null. Deletion test is skipped.");
         }
     }
 }

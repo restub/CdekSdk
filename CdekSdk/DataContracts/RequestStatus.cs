@@ -16,10 +16,10 @@ namespace CdekSdk.DataContracts
         public string RequestUuid { get; set; }
 
         [DataMember(Name = "type")]
-        public string Type { get; set; }
+        public RequestType Type { get; set; }
 
         [DataMember(Name = "state")]
-        public string State { get; set; }
+        public RequestState State { get; set; }
 
         [DataMember(Name = "date_time")]
         public DateTime DateTime { get; set; }
