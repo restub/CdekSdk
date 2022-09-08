@@ -16,7 +16,7 @@ namespace CdekSdk.DataContracts
         public DeliveryOrderEntity Entity { get; set; }
 
         [DataMember(Name = "requests")]
-        public List<RequestStatus> Requests { get; set; }
+        public List<RequestStatus> Requests { get; set; } = new List<RequestStatus>();
 
         public IEnumerable<Error> GetErrors() =>
             from r in Requests ?? Enumerable.Empty<RequestStatus>()

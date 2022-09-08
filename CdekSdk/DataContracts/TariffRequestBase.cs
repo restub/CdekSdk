@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace CdekSdk.DataContracts
@@ -27,6 +28,6 @@ namespace CdekSdk.DataContracts
         public Location ToLocation { get; set; }
 
         [DataMember(Name = "packages")]
-        public PackageSize[] Packages { get; set; }
+        public List<PackageSize> Packages { get; set; } = new List<PackageSize>();
     }
 }

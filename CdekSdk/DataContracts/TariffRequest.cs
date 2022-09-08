@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace CdekSdk.DataContracts
@@ -13,5 +14,8 @@ namespace CdekSdk.DataContracts
     {
         [DataMember(Name = "tariff_code")]
         public int TariffCode { get; set; }
+
+        [DataMember(Name = "services")]
+        public List<DeliveryOrderService> Services { get; set; } = new List<DeliveryOrderService>();
     }
 }

@@ -66,6 +66,6 @@ namespace CdekSdk.DataContracts
         public DeliveryOrderContactPerson Recipient { get; set; }
 
         [DataMember(Name = "services")]
-        public List<DeliveryOrderService> Services { get; set; }
+        public List<DeliveryOrderService> Services { get; set; } = new List<DeliveryOrderService>();
     }
 }

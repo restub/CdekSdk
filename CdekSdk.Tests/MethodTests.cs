@@ -139,7 +139,7 @@ namespace CdekSdk.Tests
                     Lang = Lang.Eng,
                     FromLocation = new Location { CityCode = 270 },
                     ToLocation = new Location { CityCode = 44 },
-                    Packages = new[]
+                    Packages =
                     {
                         new PackageSize
                         {
@@ -181,7 +181,7 @@ namespace CdekSdk.Tests
                     Lang = Lang.Eng,
                     FromLocation = null,
                     ToLocation = new Location { CityCode = 44 },
-                    Packages = new[]
+                    Packages =
                     {
                         new PackageSize
                         {
@@ -204,7 +204,7 @@ namespace CdekSdk.Tests
                     Lang = Lang.Eng,
                     FromLocation = new Location { Address = "None" },
                     ToLocation = new Location { CityCode = 44 },
-                    Packages = new[]
+                    Packages =
                     {
                         new PackageSize
                         {
@@ -227,7 +227,7 @@ namespace CdekSdk.Tests
                 TariffCode = 480,
                 FromLocation = new Location { CityCode = 270 },
                 ToLocation = new Location { CityCode = 44 },
-                Packages = new[]
+                Packages =
                 {
                     new PackageSize
                     {
@@ -235,8 +235,12 @@ namespace CdekSdk.Tests
                         Height = 10,
                         Width = 10,
                         Length = 10
-                    }
-                }
+                    },
+                },
+                Services =
+                { 
+                    new DeliveryOrderService { Code = ServiceType.BubbleWrap, Parameter = "1" },
+                },
             });
 
             Assert.That(tariff, Is.Not.Null);
@@ -254,7 +258,7 @@ namespace CdekSdk.Tests
                     TariffCode = 480,
                     FromLocation = null,
                     ToLocation = new Location { CityCode = 44 },
-                    Packages = new[]
+                    Packages =
                     {
                         new PackageSize
                         {
@@ -276,7 +280,7 @@ namespace CdekSdk.Tests
                     TariffCode = 480,
                     FromLocation = new Location { Address = "Null" },
                     ToLocation = new Location { CityCode = 44 },
-                    Packages = new[]
+                    Packages =
                     {
                         new PackageSize
                         {
