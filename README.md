@@ -43,7 +43,7 @@ var tariffs = client.CalculateTariffList(new TariffListRequest
     Lang = Lang.Eng,
     FromLocation = new Location { CityCode = 270 }, // as returned by GetCities
     ToLocation = new Location { CityCode = 44 },
-    Packages = new[]
+    Packages =
     {
         new PackageSize
         {
@@ -65,7 +65,7 @@ var tariff = client.CalculateTariff(new TariffRequest
     DeliveryType = DeliveryType.Delivery,
     FromLocation = new Location { CityCode = 270 },
     ToLocation = new Location { CityCode = 44 },
-    Packages = new[]
+    Packages =
     {
         new PackageSize
         {
@@ -100,7 +100,7 @@ var response = Client.CreateDeliveryOrder(new DeliveryOrderRequest
         Longitude = 37.682035m,
     },
     TariffCode = 480,
-    Packages = new List<Package>()
+    Packages =
     {
         new Package
         {
