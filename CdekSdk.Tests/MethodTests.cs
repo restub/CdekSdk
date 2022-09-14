@@ -117,12 +117,16 @@ namespace CdekSdk.Tests
         public void GetOffices()
         {
             var offices = Client.GetOffices(new OfficeRequest { PostalCode = 125424 });
-            Assert.That(offices, Is.Not.Null);
-            Assert.That(offices, Is.Not.Empty);
+            Assert.That(offices, Is.Not.Null.Or.Empty);
 
             offices = Client.GetOffices(new OfficeRequest { CountryCode = "CN", Lang = Lang.Zho });
-            Assert.That(offices, Is.Not.Null);
-            Assert.That(offices, Is.Not.Empty);
+            Assert.That(offices, Is.Not.Null.Or.Empty);
+
+            var city = Client.GetCities(new CityRequest { City = "Курган" });
+            Assert.That(city, Is.Not.Null.Or.Empty);
+
+            offices = Client.GetOffices(new OfficeRequest { PostalCode = 640004, CityCode = city.First().Code });
+            Assert.That(offices, Is.Not.Null.Or.Empty);
         }
 
         [Test, Ordered]
@@ -244,6 +248,8 @@ namespace CdekSdk.Tests
             });
 
             Assert.That(tariff, Is.Not.Null);
+            Assert.That(tariff.Services, Is.Not.Null.Or.Empty);
+            Assert.That(tariff.Services.Any(s => s.Code == ServiceType.BubbleWrap), Is.True);
         }
 
         [Test, Ordered]

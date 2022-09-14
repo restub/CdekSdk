@@ -31,7 +31,7 @@ namespace CdekSdk.DataContracts
         public string Currency { get; set; }
 
         [DataMember(Name = "services")]
-        public object[] Services { get; set; }
+        public TariffResponseService[] Services { get; set; }
 
         [DataMember(Name = "errors")]
         public List<Error> Errors { get; set; }
