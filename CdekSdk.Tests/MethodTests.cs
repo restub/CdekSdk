@@ -96,7 +96,7 @@ namespace CdekSdk.Tests
 
             cities = Client.GetCities(new CityRequest { City = "МОСКВА" });
             Assert.That(cities, Is.Not.Null);
-            Assert.That(cities.Length, Is.EqualTo(1));
+            Assert.That(cities.Length, Is.GreaterThanOrEqualTo(1));
             Assert.That(cities[0], Is.Not.Null);
             Assert.That(cities[0].Code, Is.EqualTo(44));
 

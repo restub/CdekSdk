@@ -14,6 +14,6 @@ namespace CdekSdk.DataContracts
         public ServiceType Code { get; set; }
 
         [DataMember(Name = "sum")]
-        public string Sum { get; set; }
+        public decimal Sum { get; set; }
     }
 }
