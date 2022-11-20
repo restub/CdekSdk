@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using CdekSdk.Toolbox;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using Restub.Toolbox;
 
 namespace CdekSdk.Tests
 {
@@ -11,13 +12,13 @@ namespace CdekSdk.Tests
     {
         private string Serialize<T>(T dto)
         {
-            var ss = new NewtonsoftSerializer();
+            var ss = new CdekSerializer();
             return ss.Serialize(dto);
         }
 
         private T Deserialize<T>(string json, T _ = default(T))
         {
-            var ss = new NewtonsoftSerializer();
+            var ss = new CdekSerializer();
             return ss.Deserialize<T>(json);
         }
 

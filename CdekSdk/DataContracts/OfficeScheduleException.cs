@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using CdekSdk.Toolbox;
 using Newtonsoft.Json;
+using Restub.Toolbox;
 
 namespace CdekSdk.DataContracts
 {

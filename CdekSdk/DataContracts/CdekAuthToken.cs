@@ -1,9 +1,10 @@
 ﻿using System.Runtime.Serialization;
+using Restub.DataContracts;
 
 namespace CdekSdk.DataContracts
 {
     [DataContract]
-    public class AuthToken
+    public class CdekAuthToken : AuthToken
     {
         [DataMember(Name = "access_token")]
         public string AccessToken { get; set; } // "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJvcmRlcjphbGw..."

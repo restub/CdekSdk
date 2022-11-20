@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using Restub.DataContracts;
 
 namespace CdekSdk.DataContracts
 {
@@ -36,7 +37,8 @@ namespace CdekSdk.DataContracts
         [DataMember(Name = "errors")]
         public List<Error> Errors { get; set; }
 
-        public IEnumerable<Error> GetErrors() =>
-            Errors ?? Enumerable.Empty<Error>();
+        public string GetErrorMessage() => CdekClient.GetErrorMessage(Errors);
+
+        public bool HasErrors() => Errors != null && Errors.Any();
     }
 }

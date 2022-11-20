@@ -1,5 +1,5 @@
 ﻿using CdekSdk.DataContracts;
-using CdekSdk.Toolbox;
+using Restub.Toolbox;
 
 namespace CdekSdk
 {
@@ -13,9 +13,9 @@ namespace CdekSdk
         /// </summary>
         /// <param name="clientAccount">Account identifier.</param>
         /// <param name="clientSecret">Client secret or password.</param>
-        internal AuthToken GetAuthToken(string clientAccount, string clientSecret)
+        internal CdekAuthToken GetAuthToken(string clientAccount, string clientSecret)
         {
-            return Post<AuthToken>("oauth/token?parameters", null, r =>
+            return Post<CdekAuthToken>("oauth/token?parameters", null, r =>
             {
                 r.AlwaysMultipartFormData = true;
                 r.AddParameters(new

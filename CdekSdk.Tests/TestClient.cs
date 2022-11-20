@@ -11,7 +11,7 @@ namespace CdekSdk.Tests
     public class TestClient : CdekClient
     {
         public TestClient()
-            :base(SandboxApiUrl, Credentials.TestCredentials)
+            :base(SandboxApiUrl, CdekCredentials.TestCredentials)
         {
             Tracer = TestContext.Progress.WriteLine;
         }

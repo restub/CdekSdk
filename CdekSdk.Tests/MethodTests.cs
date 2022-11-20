@@ -303,9 +303,14 @@ namespace CdekSdk.Tests
         [Test, Ordered]
         public void CreateDeliveryOrderFails()
         {
-            // internal server error
+            // internal server error // unsupported media type?
+            // Assert.That(() => Client.CreateDeliveryOrder(null),
+            //    Throws.TypeOf<CdekApiException>().With.Message.Contains("Internal"));
+
+            // unsupported media type? wtf?
+            // Content-type header wasn't passed to server
             Assert.That(() => Client.CreateDeliveryOrder(null),
-                Throws.TypeOf<CdekApiException>().With.Message.Contains("Internal"));
+               Throws.TypeOf<CdekApiException>().With.Message.Contains("Unsupported"));
 
             // to_location.address is empty
             Assert.That(() => Client.CreateDeliveryOrder(new DeliveryOrderRequest

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CdekSdk.DataContracts;
 using NUnit.Framework;
+using Restub.DataContracts;
 
 namespace CdekSdk.Tests
 {
@@ -13,16 +14,13 @@ namespace CdekSdk.Tests
         public void ErrorResponseGetsConverterToAStringMessage()
         {
             Assert.That(CdekClient.GetErrorMessage(null), Is.EqualTo(string.Empty));
-            Assert.That(CdekClient.GetErrorMessage(new ErrorResponse()), Is.EqualTo(string.Empty));
+            Assert.That(CdekClient.GetErrorMessage(new List<Error>()), Is.EqualTo(string.Empty));
 
-            var msg = CdekClient.GetErrorMessage(new ErrorResponse
+            var msg = CdekClient.GetErrorMessage(new List<Error>
             {
-                Errors = new List<Error>
-                {
-                    new Error { Message = "Hello" },
-                    new Error { Message = "Cruel" },
-                    new Error { Message = "World" },
-                }
+                new Error { Message = "Hello" },
+                new Error { Message = "Cruel" },
+                new Error { Message = "World" },
             });
 
             Assert.That(msg, Is.EqualTo("Hello. Cruel. World"));
@@ -33,7 +31,7 @@ namespace CdekSdk.Tests
         {
             // all DTO types implementing IHasErrors interface
             var errorEnabledResponseTypes =
-                from t in typeof(IHasErrors).Assembly.GetTypes()
+                from t in typeof(CdekClient).Assembly.GetTypes()
                 where t.GetInterfaces().Contains(typeof(IHasErrors))
                 select t;
 
@@ -45,8 +43,8 @@ namespace CdekSdk.Tests
             {
                 var emptyResponse = Activator.CreateInstance(t) as IHasErrors;
                 Assert.That(emptyResponse, Is.Not.Null);
-                Assert.That(emptyResponse.GetErrors(), Is.Not.Null);
-                Assert.That(emptyResponse.GetErrors().Any(), Is.False);
+                Assert.That(emptyResponse.GetErrorMessage(), Is.Not.Null);
+                Assert.That(emptyResponse.HasErrors(), Is.False);
             }
         }
     }
