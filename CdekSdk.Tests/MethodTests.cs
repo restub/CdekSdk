@@ -117,16 +117,16 @@ namespace CdekSdk.Tests
         public void GetOffices()
         {
             var offices = Client.GetOffices(new OfficeRequest { PostalCode = 125424 });
-            Assert.That(offices, Is.Not.Null.Or.Empty);
+            Assert.That(offices, Is.Not.Null.And.Not.Empty);
 
             offices = Client.GetOffices(new OfficeRequest { CountryCode = "CN", Lang = Lang.Zho });
-            Assert.That(offices, Is.Not.Null.Or.Empty);
+            Assert.That(offices, Is.Not.Null.And.Not.Empty);
 
             var city = Client.GetCities(new CityRequest { City = "Курган" });
-            Assert.That(city, Is.Not.Null.Or.Empty);
+            Assert.That(city, Is.Not.Null.And.Not.Empty);
 
-            offices = Client.GetOffices(new OfficeRequest { PostalCode = 640004, CityCode = city.First().Code });
-            Assert.That(offices, Is.Not.Null.Or.Empty);
+            offices = Client.GetOffices(new OfficeRequest { CityCode = city.First(r => r.Region == "Курганская область").Code });
+            Assert.That(offices, Is.Not.Null.And.Not.Empty);
         }
 
         [Test, Ordered]
@@ -242,13 +242,13 @@ namespace CdekSdk.Tests
                     },
                 },
                 Services =
-                { 
+                {
                     new DeliveryOrderService { Code = ServiceType.BubbleWrap, Parameter = "1" },
                 },
             });
 
             Assert.That(tariff, Is.Not.Null);
-            Assert.That(tariff.Services, Is.Not.Null.Or.Empty);
+            Assert.That(tariff.Services, Is.Not.Null.And.Not.Empty);
             Assert.That(tariff.Services.Any(s => s.Code == ServiceType.BubbleWrap), Is.True);
         }
 
@@ -425,8 +425,8 @@ namespace CdekSdk.Tests
             Assert.That(response, Is.Not.Null);
             Assert.That(response.Entity, Is.Not.Null);
             Assert.That(DeliveryOrderUuid = response.Entity.Uuid, Is.Not.Null);
-            Assert.That(response.Requests, Is.Not.Null.Or.Empty);
-            Assert.That(response.Requests.First().RequestUuid, Is.Not.Null.Or.Empty);
+            Assert.That(response.Requests, Is.Not.Null.And.Not.Empty);
+            Assert.That(response.Requests.First().RequestUuid, Is.Not.Null.And.Not.Empty);
         }
 
         private string DeliveryOrderUuid { get; set; } // set by CreateDeliveryOrderSucceeds test

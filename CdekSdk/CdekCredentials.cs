@@ -18,6 +18,24 @@ namespace CdekSdk
         };
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="CdekCredentials"/> class.
+        /// </summary>
+        public CdekCredentials()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CdekCredentials"/> class.
+        /// </summary>
+        /// <param name="clientAccount">Client account.</param>
+        /// <param name="clientSecret">Client secret.</param>
+        public CdekCredentials(string clientAccount, string clientSecret)
+        {
+            ClientAccount = clientAccount;
+            ClientSecret = clientSecret;
+        }
+
+        /// <summary>
         /// Gets or sets client account identifier.
         /// </summary>
         public string ClientAccount { get; set; }

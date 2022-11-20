@@ -40,8 +40,17 @@ namespace CdekSdk
         /// </summary>
         /// <param name="сlient">REST API client.</param>
         /// <param name="credentials">Credentials.</param>
-        public CdekClient(IRestClient client, CdekCredentials credentials)
-            : base(client, credentials)
+        public CdekClient(string baseUrl, string clientAccount, string clientSecret)
+            : base(baseUrl, new CdekCredentials(clientAccount, clientSecret))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CdekClient"/> class for sandbox.
+        /// </summary>
+        /// <param name="сlient">REST API client.</param>
+        /// <param name="credentials">Credentials.</param>
+        public CdekClient() : base(SandboxApiUrl, CdekCredentials.TestCredentials)
         {
         }
 

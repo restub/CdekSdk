@@ -21,6 +21,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageReleaseNotes>Beta release. What's new:
+
     v0.5
     — Ported to restub library, reduced the code base, unified error handling.
 
@@ -37,7 +38,12 @@
 
   <ItemGroup>
     <PackageReference Include="restub" Version="0.16.5" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\CdekSdk.png" Pack="true" PackagePath="\" />
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
