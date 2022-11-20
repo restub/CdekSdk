@@ -10,16 +10,29 @@
     <Company>https://github.com/yallie</Company>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <PackageId>CdekSdk</PackageId>
-    <PackageProjectUrl>https://github.com/yallie/CdekSdk</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/yallie/CdekSdk.git</RepositoryUrl>
-    <PackageTags>cdek; rest; api</PackageTags>
-    <Title>CDEK SDK.</Title>
-    <Description>CDEK delivery company REST API SDK.</Description>
+    <PackageProjectUrl>https://github.com/restub/CdekSdk</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/restub/CdekSdk.git</RepositoryUrl>
+    <PackageTags>cdek.ru; cdek; rest; api; sdk; client; framework; tracing; logging</PackageTags>
+    <Title>CdekSdk</Title>
+    <Description>CDEK delivery company REST API client with tracing support.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageReleaseNotes>Beta release. What's new:
+    v0.5
+    — Ported to restub library, reduced the code base, unified error handling.
+
+    v0.4
+    — Improved error handling, implemented CreateDeliveryOrder.
+
+    v0.3
+    — Implemented tariff calculation, changed the namespace to CdekSdk.
+
+    v0.2
+    — Initial beta release: authentication, GetRegions, GetCities, etc.
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
