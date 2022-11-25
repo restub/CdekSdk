@@ -1,10 +1,11 @@
-# CDEK API
+# CDEK SDK
 
 [![CDEK API Client v2.0](https://img.shields.io/badge/cdek%20api-v2.0-%2300B33C)](https://api-docs.cdek.ru/29923741.html)
 [![Code quality](https://img.shields.io/codefactor/grade/github/restub/CdekSdk)](https://www.codefactor.io/repository/github/restub/CdekSdk)
 [![GitHub Actions](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fyallie%2FCdekSdk%2Fbadge&label=build&logo=none)](https://actions-badge.atrox.dev/yallie/CdekSdk/goto)
 [![.NET Framework 4.62](https://img.shields.io/badge/.net-v4.62-yellow)](https://www.microsoft.com/ru-RU/download/details.aspx?id=53321)
 [![NuGet](https://img.shields.io/nuget/v/CdekSdk.svg)](https://nuget.org/packages/CdekSdk)
+[![DotNetFiddle](https://img.shields.io/badge/try-online-blue)](https://dotnetfiddle.net/ko50vv)
 
 # Getting started
 
@@ -22,8 +23,9 @@
 ## Sample code:
 
 ```c#
-// use sandbox server and test developer account
-var client = new CdekClient(CdekClient.SandboxApiUrl, Credentials.TestCredentials);
+var client = new CdekClient();
+
+// trace all API calls to the console
 client.Tracer = Console.WriteLine;
 
 // get Russian and Chinese cities available for CDEK delivery
@@ -34,6 +36,8 @@ var cities = client.GetCities(new CityRequest
 ```
 
 ## Calculating available tariffs
+
+Try this sample online: https://dotnetfiddle.net/ko50vv
 
 ```c#
 var tariffs = client.CalculateTariffList(new TariffListRequest
