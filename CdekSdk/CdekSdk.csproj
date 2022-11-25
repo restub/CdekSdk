@@ -12,7 +12,7 @@
     <PackageId>CdekSdk</PackageId>
     <PackageProjectUrl>https://github.com/restub/CdekSdk</PackageProjectUrl>
     <RepositoryUrl>https://github.com/restub/CdekSdk.git</RepositoryUrl>
-    <PackageTags>cdek.ru; cdek; rest; api; sdk; client; framework; tracing; logging</PackageTags>
+    <PackageTags>cdek.ru; cdek; restub; rest; api; sdk; client; framework; tracing; logging</PackageTags>
     <PackageIcon>CdekSdk.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <Title>CdekSdk</Title>
@@ -50,5 +50,13 @@
     <None Include="Resources\CdekSdk.png" Pack="true" PackagePath="\" />
     <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
 
 </Project>
