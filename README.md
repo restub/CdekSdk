@@ -14,7 +14,9 @@
 * Create `CdekClient` using your credentials and connect to either endpoint:
   * `CdekClient.SandboxApiUrl` — for testing
   * `CdekClient.ProductionApiUrl` — for production code
-* Set `CdekClient.Tracer` callback to `Console.WriteLine` or your favorite logger's `WriteLine` method. 
+* Set `CdekClient.Tracer` callback to your favorite logger's `WriteLine` method:
+  * Tracer = Console.WriteLine — to trace all API calls to the system console
+  * Tracer = TestContext.Progress.WriteLine — to trace your unit tests to Visual Studio Output window 
 * Invoke `CdekClient` methods to calculate delivery tariffs, place orders, etc.
 * Consult the original API documentation for the available methods:
   * [Russian documentation](https://api-docs.cdek.ru/29923741.html)
