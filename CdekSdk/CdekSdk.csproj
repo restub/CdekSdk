@@ -13,6 +13,8 @@
     <PackageProjectUrl>https://github.com/restub/CdekSdk</PackageProjectUrl>
     <RepositoryUrl>https://github.com/restub/CdekSdk.git</RepositoryUrl>
     <PackageTags>cdek.ru; cdek; rest; api; sdk; client; framework; tracing; logging</PackageTags>
+    <PackageIcon>CdekSdk.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <Title>CdekSdk</Title>
     <Description>CDEK delivery company REST API client with tracing support.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -37,7 +39,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="restub" Version="0.16.5" />
+    <PackageReference Include="restub" Version="0.17.5" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 

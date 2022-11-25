@@ -55,6 +55,10 @@ namespace CdekSdk
         }
 
         /// <inheritdoc/>
+        public override string LibraryName =>
+            $"{nameof(CdekSdk)}.{nameof(CdekClient)} v{LibraryVersion}, {base.LibraryName}";
+
+        /// <inheritdoc/>
         protected override IAuthenticator GetAuthenticator() =>
             new CdekAuthenticator(this, (CdekCredentials)Credentials);
 
@@ -64,7 +68,7 @@ namespace CdekSdk
 
         /// <inheritdoc/>
         protected override Exception CreateException(IRestResponse res, string msg, IHasErrors errors) =>
-            new CdekApiException(res.StatusCode, msg, base.CreateException(res, msg, errors))
+            new CdekException(res.StatusCode, msg, base.CreateException(res, msg, errors))
             {
                 ErrorResponseText = res.Content,
             };

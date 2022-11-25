@@ -18,6 +18,5 @@ namespace CdekSdk.DataContracts
         public string GetErrorMessage() => CdekClient.GetErrorMessage(Errors);
 
         public bool HasErrors() => Errors != null && Errors.Any();
-
     }
 }

@@ -15,7 +15,7 @@ namespace CdekSdk.Tests
         [Test, Ordered]
         public void BadInput()
         {
-            var ex = Assert.Throws<CdekApiException>(() => Client.GetRegions(new RegionRequest { Page = 3 }));
+            var ex = Assert.Throws<CdekException>(() => Client.GetRegions(new RegionRequest { Page = 3 }));
             Assert.That(ex, Is.Not.Null);
 
             // reports something like: [size] is empty
@@ -196,7 +196,7 @@ namespace CdekSdk.Tests
                         }
                     }
                 });
-            }, Throws.TypeOf<CdekApiException>().With.Message.Contains("from_location"));
+            }, Throws.TypeOf<CdekException>().With.Message.Contains("from_location"));
 
             // Sender city is not specified
             Assert.That(() =>
@@ -219,7 +219,7 @@ namespace CdekSdk.Tests
                         }
                     }
                 });
-            }, Throws.TypeOf<CdekApiException>().With.Message.Contains("Sender"));
+            }, Throws.TypeOf<CdekException>().With.Message.Contains("Sender"));
         }
 
         [Test, Ordered]
@@ -275,7 +275,7 @@ namespace CdekSdk.Tests
                         }
                     }
                 });
-            }, Throws.TypeOf<CdekApiException>().With.Message.Contains("from_location"));
+            }, Throws.TypeOf<CdekException>().With.Message.Contains("from_location"));
 
             // не указан город отправителя
             Assert.That(() =>
@@ -297,20 +297,15 @@ namespace CdekSdk.Tests
                         }
                     }
                 });
-            }, Throws.TypeOf<CdekApiException>().With.Message.Contains("отправителя"));
+            }, Throws.TypeOf<CdekException>().With.Message.Contains("отправителя"));
         }
 
         [Test, Ordered]
         public void CreateDeliveryOrderFails()
         {
-            // internal server error // unsupported media type?
-            // Assert.That(() => Client.CreateDeliveryOrder(null),
-            //    Throws.TypeOf<CdekApiException>().With.Message.Contains("Internal"));
-
-            // unsupported media type? wtf?
-            // Content-type header wasn't passed to server
+            // internal server error
             Assert.That(() => Client.CreateDeliveryOrder(null),
-               Throws.TypeOf<CdekApiException>().With.Message.Contains("Unsupported"));
+               Throws.TypeOf<CdekException>().With.Message.Contains("Internal"));
 
             // to_location.address is empty
             Assert.That(() => Client.CreateDeliveryOrder(new DeliveryOrderRequest
@@ -363,7 +358,7 @@ namespace CdekSdk.Tests
                     },
                 },
             }),
-            Throws.TypeOf<CdekApiException>().With.Message.Contain("location.address").And.Message.Contain("empty"));
+            Throws.TypeOf<CdekException>().With.Message.Contain("location.address").And.Message.Contain("empty"));
         }
 
         [Test, Ordered]
@@ -457,7 +452,7 @@ namespace CdekSdk.Tests
                     TestContext.Progress.WriteLine("GetDeliveryOrder succeeded at attempt #" + i);
                     return;
                 }
-                catch (CdekApiException)
+                catch (CdekException)
                 {
                     // order not found, retry
                     continue;
@@ -471,14 +466,14 @@ namespace CdekSdk.Tests
         public void GetDeliveryOrderFails()
         {
             Assert.That(() => Client.GetDeliveryOrder("A72932A5-E2DF-4165-9E3E-D79DB17EED81"), // random Guid
-                Throws.TypeOf<CdekApiException>().With.Message.Contain("Entity").And.Message.Contain("not found"));
+                Throws.TypeOf<CdekException>().With.Message.Contain("Entity").And.Message.Contain("not found"));
         }
 
         [Test, Ordered]
         public void DeleteDeliveryOrderFails()
         {
             Assert.That(() => Client.DeleteDeliveryOrder("A72932A5-E2DF-4165-9E3E-D79DB17EED81"), // random Guid
-                Throws.TypeOf<CdekApiException>().With.Message.Contain("Entity").And.Message.Contain("not found"));
+                Throws.TypeOf<CdekException>().With.Message.Contain("Entity").And.Message.Contain("not found"));
         }
 
         [Test, Ordered]

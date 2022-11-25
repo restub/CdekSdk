@@ -6,18 +6,18 @@ using Restub;
 namespace CdekSdk
 {
     /// <summary>
-    /// CDEK API Exception.
+    /// CDEK Exception.
     /// </summary>
     [Serializable]
-    public class CdekApiException : RestubException
+    public class CdekException : RestubException
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CdekApiException"/> class.
+        /// Initializes a new instance of the <see cref="CdekException"/> class.
         /// </summary>
         /// <param name="code">HTTP status code.</param>
         /// <param name="message">Error message.</param>
         /// <param name="innerException">Inner <see cref="Exception"/> instance.</param>
-        public CdekApiException(HttpStatusCode code, string message, Exception innerException)
+        public CdekException(HttpStatusCode code, string message, Exception innerException)
             : base(code, GetMessage(code, message), innerException)
         {
         }
@@ -33,7 +33,7 @@ namespace CdekSdk
         }
 
         /// <inheritdoc/>
-        protected CdekApiException(SerializationInfo info, StreamingContext context)
+        protected CdekException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }
