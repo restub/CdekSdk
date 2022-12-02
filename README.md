@@ -24,6 +24,8 @@
 
 ## Sample code:
 
+Try online: https://dotnetfiddle.net/kifsWu
+
 ```c#
 var client = new CdekClient();
 
@@ -39,7 +41,7 @@ var cities = client.GetCities(new CityRequest
 
 ## Calculating available tariffs
 
-Try this sample online: https://dotnetfiddle.net/ko50vv
+Try online: https://dotnetfiddle.net/ko50vv
 
 ```c#
 var tariffs = client.CalculateTariffList(new TariffListRequest

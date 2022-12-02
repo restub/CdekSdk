@@ -13,6 +13,7 @@ namespace CdekSdk.Toolbox
         protected override JsonSerializerSettings CreateJsonSerializerSettings()
         {
             var settings = new JsonSerializerSettings();
+            settings.NullValueHandling = NullValueHandling.Ignore;
             settings.DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind;
             settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
             settings.Converters.Add(new Newtonsoft.Json.Converters.IsoDateTimeConverter
