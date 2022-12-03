@@ -22,7 +22,7 @@
   * [Russian documentation](https://api-docs.cdek.ru/29923741.html)
   * [English documentation](https://api-docs.cdek.ru/33828739.html)
 
-## Sample code:
+## Sample code
 
 Try online: https://dotnetfiddle.net/kifsWu
 
@@ -151,8 +151,7 @@ To enable tracing all http requests and responses, set the `Tracer` property:
 client.Tracer = Console.WriteLine;
 ```
 
-<details>
-  <summary>A typical trace log looks like this:</summary>
+A typical trace log looks like this:
     
 ```c
 // GetAuthToken
@@ -185,7 +184,7 @@ headers: {
   Server = QRATOR
 }
 body: {
-  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJvcmRlcjphbGwiLCJwYXltZW50OmFsbCJdLCJleHAiOjE2NjE5NTI2NTksImF1dGhvcml0aWVzIjpbInNoYXJkLWlkOnJ1LTAxIiwiY2xpZW50LWNpdHk60J3QvtCy0L7RgdC40LHQuNGA0YHQuiwg0J3QvtCy0L7RgdC40LHQuNGA0YHQutCw0Y8g0L7QsdC70LDRgdGC0YwiLCJmdWxsLW5hbWU60KLQtdGB0YLQuNGA0L7QstCw0L3QuNC1INCY0L3RgtC10LPRgNCw0YbQuNC4INCY0JwsINCe0JHQqdCV0KHQotCS0J4g0KEg0J7Qk9Cg0JDQndCY0KfQldCd0J3QntCZINCe0KLQktCV0KLQodCi0JLQldCd0J3QntCh0KLQrNCuIiwiYWNjb3VudC1sYW5nOnJ1cyIsImNvbnRyYWN0OtCY0Jwt0KDQpC3Qk9Cb0JMtMjIiLCJhY2NvdW50LXV1aWQ6ZTkyNWJkMGYtMDVhNi00YzU2LWI3MzctNGI5OWMxNGY2NjlhIiwiYXBpLXZlcnNpb246MS4xIiwiY2xpZW50LWlkLWVjNTplZDc1ZWNmNC0zMGVkLTQxNTMtYWZlOS1lYjgwYmI1MTJmMjIiLCJjbGllbnQtaWQtZWM0OjE0MzQ4MjMxIiwic29saWQtYWRkcmVzczpmYWxzZSIsImNvbnRyYWdlbnQtdXVpZDplZDc1ZWNmNC0zMGVkLTQxNTMtYWZlOS1lYjgwYmI1MTJmMjIiXSwianRpIjoiOGQ3MDc0MWYtODc3Ni00MTFjLTgwZjEtZjg3MGI2MDhiYzUyIiwiY2xpZW50X2lkIjoiRU1zY2Q2cjlKbkZpUTNiTG95akpZNmVNNzhKckpjZUkifQ.Ksoyu9zJHSc9AKqfytjwURwO3Eba03y0mC2LcN9cHTzKYJ-fSQzsjTk6z0qI4GeFgMHGrhEfrXPGMr19TwvsaTUKxfTObFnKhaN_xOfCDgZarI_Y5X3_rcGlBMxcbSRQKiKLuZ0c1ob6gTrFo4AuxiD5LyaJJJ4WCQRWkJJJu9zGuE_s2rRwpegcB6B2AqvGlfGrTDvaSgvJqWFAYNkFgGAjDYLvzdIrUD-C0Cad7p6eFvfML68Nh73Y4qityvge1PIZvYaQOAGzP_eeoFoDNxK4ygxqm64wem4umx0pYKZaacdYA6WV-ptfEayfd_Dxq00EGA-z8dYtyD6Y8yToig",
+  "access_token": "eyJhbGciO...dYtyD6Y8yToig",
   "token_type": "bearer",
   "expires_in": 3599,
   "scope": "order:all payment:all",
@@ -196,7 +195,7 @@ body: {
 -> POST https://api.edu.cdek.ru/v2/orders
 headers: {
   X-ApiMethodName = CreateDeliveryOrder
-  Authorization = Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJvcmRlcjphbGwiLCJwYXltZW50OmFsbCJdLCJleHAiOjE2NjE5NTI2NTksImF1dGhvcml0aWVzIjpbInNoYXJkLWlkOnJ1LTAxIiwiY2xpZW50LWNpdHk60J3QvtCy0L7RgdC40LHQuNGA0YHQuiwg0J3QvtCy0L7RgdC40LHQuNGA0YHQutCw0Y8g0L7QsdC70LDRgdGC0YwiLCJmdWxsLW5hbWU60KLQtdGB0YLQuNGA0L7QstCw0L3QuNC1INCY0L3RgtC10LPRgNCw0YbQuNC4INCY0JwsINCe0JHQqdCV0KHQotCS0J4g0KEg0J7Qk9Cg0JDQndCY0KfQldCd0J3QntCZINCe0KLQktCV0KLQodCi0JLQldCd0J3QntCh0KLQrNCuIiwiYWNjb3VudC1sYW5nOnJ1cyIsImNvbnRyYWN0OtCY0Jwt0KDQpC3Qk9Cb0JMtMjIiLCJhY2NvdW50LXV1aWQ6ZTkyNWJkMGYtMDVhNi00YzU2LWI3MzctNGI5OWMxNGY2NjlhIiwiYXBpLXZlcnNpb246MS4xIiwiY2xpZW50LWlkLWVjNTplZDc1ZWNmNC0zMGVkLTQxNTMtYWZlOS1lYjgwYmI1MTJmMjIiLCJjbGllbnQtaWQtZWM0OjE0MzQ4MjMxIiwic29saWQtYWRkcmVzczpmYWxzZSIsImNvbnRyYWdlbnQtdXVpZDplZDc1ZWNmNC0zMGVkLTQxNTMtYWZlOS1lYjgwYmI1MTJmMjIiXSwianRpIjoiOGQ3MDc0MWYtODc3Ni00MTFjLTgwZjEtZjg3MGI2MDhiYzUyIiwiY2xpZW50X2lkIjoiRU1zY2Q2cjlKbkZpUTNiTG95akpZNmVNNzhKckpjZUkifQ.Ksoyu9zJHSc9AKqfytjwURwO3Eba03y0mC2LcN9cHTzKYJ-fSQzsjTk6z0qI4GeFgMHGrhEfrXPGMr19TwvsaTUKxfTObFnKhaN_xOfCDgZarI_Y5X3_rcGlBMxcbSRQKiKLuZ0c1ob6gTrFo4AuxiD5LyaJJJ4WCQRWkJJJu9zGuE_s2rRwpegcB6B2AqvGlfGrTDvaSgvJqWFAYNkFgGAjDYLvzdIrUD-C0Cad7p6eFvfML68Nh73Y4qityvge1PIZvYaQOAGzP_eeoFoDNxK4ygxqm64wem4umx0pYKZaacdYA6WV-ptfEayfd_Dxq00EGA-z8dYtyD6Y8yToig
+  Authorization = Bearer eyJhbGciO...dYtyD6Y8yToig
   Accept = application/json, text/json, text/x-json, text/javascript, application/xml, text/xml
   Content-type = application/json
 }
@@ -303,7 +302,7 @@ headers: {
   Content-Type = application/json
   Date = Wed, 31 Aug 2022 12:30:59 GMT
   Expires = 0
-  Location = http://atlas-nsk-edu-app-04.node.atlas-nsk.cdek.tech:8939/v2/orders/72753031-7310-4448-b6fa-bf474772be48
+  Location = http://cdek.tech/v2/orders/72753031-7310-4448-b6fa-bf474772be48
   Server = QRATOR
 }
 body: {
@@ -320,7 +319,6 @@ body: {
   ]
 }
 ```
-</details>
 
 # SDK versioning
 
