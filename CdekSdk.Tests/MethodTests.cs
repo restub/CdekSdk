@@ -198,7 +198,8 @@ namespace CdekSdk.Tests
                 });
             }, Throws.TypeOf<CdekException>().With.Message.Contains("from_location"));
 
-            // Sender city is not specified
+            // old error message: Sender city is not specified
+            // new error message: No available tariffs for this direction and conditions
             Assert.That(() =>
             {
                 Client.CalculateTariffList(new TariffListRequest
@@ -219,7 +220,7 @@ namespace CdekSdk.Tests
                         }
                     }
                 });
-            }, Throws.TypeOf<CdekException>().With.Message.Contains("Sender"));
+            }, Throws.TypeOf<CdekException>().With.Message.Contains("No available tariffs for this direction and conditions")); //("Sender"));
         }
 
         [Test, Ordered]
