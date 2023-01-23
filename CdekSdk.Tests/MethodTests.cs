@@ -220,7 +220,7 @@ namespace CdekSdk.Tests
                         }
                     }
                 });
-            }, Throws.TypeOf<CdekException>().With.Message.Contains("No available tariffs for this direction and conditions")); //("Sender"));
+            }, Throws.TypeOf<CdekException>().With.Message.Contains("Sender city not specified")); // was ("No available tariffs for this direction and conditions")); //("Sender"));
         }
 
         [Test, Ordered]
