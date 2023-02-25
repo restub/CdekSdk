@@ -116,7 +116,13 @@ namespace CdekSdk.Tests
         [Test, Ordered]
         public void GetOffices()
         {
-            var offices = Client.GetOffices(new OfficeRequest { PostalCode = 125424 });
+            //foreach (var code in new[] { 125454, 600000, 187553, 354000, 309181, 220114, 187406, 790008 })
+            //{
+            //    var off = Client.GetOffices(new OfficeRequest { PostalCode = code });
+            //    Assert.That(off, Is.Not.Null.And.Empty);
+            //}
+
+            var offices = Client.GetOffices(new OfficeRequest { PostalCode = 309181 }); // 125454
             Assert.That(offices, Is.Not.Null.And.Not.Empty);
 
             offices = Client.GetOffices(new OfficeRequest { CountryCode = "CN", Lang = Lang.Zho });
@@ -201,6 +207,7 @@ namespace CdekSdk.Tests
             // Possible error messages:
             // - Sender city is not specified
             // - No available tariffs for this direction and conditions
+            // - По данному направлению при заданных условиях нет доступных тарифов
             Assert.That(() =>
             {
                 Client.CalculateTariffList(new TariffListRequest
@@ -223,7 +230,8 @@ namespace CdekSdk.Tests
                 });
             }, Throws.TypeOf<CdekException>().With
                 .Message.Contains("Sender city not specified").Or
-                .Message.Contains("No available tariffs for this direction and conditions"));
+                .Message.Contains("No available tariffs for this direction and conditions").Or
+                .Message.Contains("По данному направлению при заданных условиях нет доступных тарифов"));
         }
 
         [Test, Ordered]
