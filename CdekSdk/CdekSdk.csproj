@@ -24,6 +24,9 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageReleaseNotes>Beta release. What's new:
 
+    v0.7
+    — Updated the dependencies.
+
     v0.6
     — Fixed Content-type header issue, added package logo icon and readme.
 
@@ -42,7 +45,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="restub" Version="0.17.5" />
+    <PackageReference Include="restub" Version="0.18.9" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 
