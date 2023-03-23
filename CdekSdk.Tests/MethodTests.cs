@@ -100,11 +100,11 @@ namespace CdekSdk.Tests
             Assert.That(cities[0], Is.Not.Null);
             Assert.That(cities[0].Code, Is.EqualTo(44));
 
-            cities = Client.GetCities(new CityRequest { PostalCode = "440514" }); // search by postal code is broken on test server
+            cities = Client.GetCities(new CityRequest { PostalCode = "125424" });
             Assert.That(cities, Is.Not.Null);
             Assert.That(cities.Length, Is.EqualTo(1));
             Assert.That(cities[0], Is.Not.Null);
-            Assert.That(cities[0].Code, Is.EqualTo(1114612));
+            Assert.That(cities[0].Code, Is.EqualTo(44));
 
             cities = Client.GetCities(new CityRequest { City = "Столин", PostalCode = "100000" }); // PostalCode = "109125"
             Assert.That(cities, Is.Not.Null);
