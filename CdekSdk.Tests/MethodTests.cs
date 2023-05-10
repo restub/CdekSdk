@@ -208,6 +208,7 @@ namespace CdekSdk.Tests
             // - Sender city is not specified
             // - No available tariffs for this direction and conditions
             // - По данному направлению при заданных условиях нет доступных тарифов
+            // — [from_location.code] is empty
             Assert.That(() =>
             {
                 Client.CalculateTariffList(new TariffListRequest
@@ -215,7 +216,7 @@ namespace CdekSdk.Tests
                     DeliveryType = DeliveryType.Delivery,
                     Date = DateTime.Today,
                     Lang = Lang.Eng,
-                    FromLocation = new Location { Address = "None" },
+                    FromLocation = new Location { Address = "" },
                     ToLocation = new Location { CityCode = 44 },
                     Packages =
                     {
@@ -231,7 +232,8 @@ namespace CdekSdk.Tests
             }, Throws.TypeOf<CdekException>().With
                 .Message.Contains("Sender city not specified").Or
                 .Message.Contains("No available tariffs for this direction and conditions").Or
-                .Message.Contains("По данному направлению при заданных условиях нет доступных тарифов"));
+                .Message.Contains("По данному направлению при заданных условиях нет доступных тарифов").Or
+                .Message.Contains("[from_location.code] is empty"));
         }
 
         [Test, Ordered]
@@ -309,7 +311,9 @@ namespace CdekSdk.Tests
                         }
                     }
                 });
-            }, Throws.TypeOf<CdekException>().With.Message.Contains("отправителя"));
+            }, Throws.TypeOf<CdekException>().With
+                .Message.Contains("отправителя").Or
+                .Message.Contains("ender location"));
         }
 
         [Test, Ordered]

@@ -3,7 +3,7 @@
 namespace CdekSdk.DataContracts
 {
     /// <summary>
-    /// Delivery modes.
+    /// Delivery modes (appendix 3).
     /// EN: https://api-docs.cdek.ru/63347458.html
     /// RU: https://api-docs.cdek.ru/63345519.html
     /// </summary>
@@ -26,6 +26,15 @@ namespace CdekSdk.DataContracts
         DoorToParcelTeminal = 6,
 
         [EnumMember(Value = "7")]
-        WarehouseToParcelTerminal = 7
+        WarehouseToParcelTerminal = 7,
+
+        [EnumMember(Value = "8")]
+        ParcelTerminalToDoor = 8,
+
+        [EnumMember(Value = "9")]
+        ParcelTerminalToWarehouse = 9,
+
+        [EnumMember(Value = "10")]
+        ParcelTerminalToParcelTerminal = 10,
     }
 }
